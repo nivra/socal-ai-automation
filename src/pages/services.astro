@@ -1,45 +1,76 @@
 ---
-import BaseLayout from '../layouts/BlogPost.astro';
-
-const title = "Our Services";
-const description = "Bespoke automation and agentic AI solutions for QT communities.";
-const pubDate = new Date("Feb 14 2026");
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<BaseLayout {title} {description} {pubDate}>
-	<h1>Our Services</h1>
+<html lang="en">
+	<head>
+		<BaseHead title={`Our Services | ${SITE_TITLE}`} description="Bespoke automation and agentic AI solutions for QT communities." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Our Services</h1>
 
-	## Automation that frees your time
+			<h2>Automation that frees your time</h2>
 
-	We specialize in **bespoke automation and agentic AI solutions** — custom-built systems that eliminate the repetitive pain eating your time and energy.
+			<p>We specialize in <strong>bespoke automation and agentic AI solutions</strong> — custom-built systems that eliminate the repetitive pain eating your time and energy.</p>
 
-	### Bespoke Automation & AI Solutions
+			<h3>Bespoke Automation &amp; AI Solutions</h3>
 
-	This is where we shine. We understand your specific workflow, identify the friction points, and build systems tailored to your business. Not templates. Not off-the-shelf. *Your* solution.
+			<p>This is where we shine. We understand your specific workflow, identify the friction points, and build systems tailored to your business. Not templates. Not off-the-shelf. <em>Your</em> solution.</p>
 
-	**What this looks like:**
-	- Custom automation workflows for intake, scheduling, reporting, communication
-	- Agentic AI systems that learn your business and work smarter over time
-	- Data integration across your tools — making them talk to each other
-	- End-to-end implementation support
+			<p><strong>What this looks like:</strong></p>
+			<ul>
+				<li>Custom automation workflows for intake, scheduling, reporting, communication</li>
+				<li>Agentic AI systems that learn your business and work smarter over time</li>
+				<li>Data integration across your tools — making them talk to each other</li>
+				<li>End-to-end implementation support</li>
+			</ul>
 
-	We handle the complexity so you can focus on the work that matters.
+			<p>We handle the complexity so you can focus on the work that matters.</p>
 
-	### AI/ML Consulting
+			<h3>AI/ML Consulting</h3>
 
-	Need strategy? We help you think through where AI fits in your operation — what's worth building, what's extractive, what honors your values and your community.
+			<p>Need strategy? We help you think through where AI fits in your operation — what's worth building, what's extractive, what honors your values and your community.</p>
 
-	**What this looks like:**
-	- Assessing your current workflows and pain points
-	- Designing AI solutions that are ethical and sustainable
-	- Building implementation roadmaps
-	- Ongoing support for your teams
+			<p><strong>What this looks like:</strong></p>
+			<ul>
+				<li>Assessing your current workflows and pain points</li>
+				<li>Designing AI solutions that are ethical and sustainable</li>
+				<li>Building implementation roadmaps</li>
+				<li>Ongoing support for your teams</li>
+			</ul>
 
-	### Implementation & Support
+			<h3>Implementation &amp; Support</h3>
 
-	If we build it together, we support it. And if you're running a project in our wheelhouse, we're here.
+			<p>If we build it together, we support it. And if you're running a project in our wheelhouse, we're here.</p>
 
-	---
+			<hr />
 
-	**Ready to automate your way to freedom?** [Let's talk.](/about)
-</BaseLayout>
+			<p><strong>Ready to automate your way to freedom?</strong> <a href="/about">Let's talk.</a></p>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+		color: rgb(var(--gray-dark));
+	}
+	h1 {
+		margin-top: 4rem;
+		text-align: center;
+	}
+	h2 {
+		margin-top: 2rem;
+	}
+	ul {
+		list-style-position: inside;
+	}
+</style>
