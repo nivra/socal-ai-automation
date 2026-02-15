@@ -12,17 +12,22 @@ And in the middle of all this, artificial intelligence is arriving.
 
 AI could be the most transformative technology in human history. It could also be the most destructive. The question isn't whether AI will reshape the world — it already is. The question is: **who gets to shape it, and for whose benefit?**
 
-Right now, the answer is clear. AI is being built by corporations, for corporations, to extract more value from people and planet. That's not inevitable. That's a choice. And we're making a different one.
+Right now, the answer is clear. AI is being built by corporations, for the rich, to extract more value from people and planet. That's not inevitable. That's a choice. And we're making a different one.
 
 ## The Prophecy of the Condor and the Eagle
 
-There is a prophecy shared across Indigenous traditions of the Americas — the prophecy of the Condor and the Eagle. I first encountered it in 2010, while practicing with Ayahuasca ceremonial communities, and it has shaped how I see the world ever since.
+There is a prophecy shared across Indigenous traditions of the Americas — the prophecy of the Condor and the Eagle. I first encountered it in 2010, while practicing with Ayahuasca ceremonial communities, and it has shaped how I see the world ever since.  Thi
 
-The Eagle represents the path of the mind — science, technology, industry, the brilliant innovations that have transformed human life. The Eagle soars high and sees far. The Eagle has given us medicine, communication, the ability to connect across oceans. But the Eagle, flying alone, has also brought us to the edge of ecological collapse, to wars fought with weapons that could end everything, to systems that value profit over life.
+The prophecy says that the Condor owned the skies for thousands of years, but then the Eagle rose, and the Eagle owned the skies for hundreds of years.   But now, we are living in the time when the Condor and the Eagle must learn to fly together.  
+
+There are many interpretations of this prophecy.  This is what we believe.
+
+The Eagle represents the path of the mind — science, technology, industry, the brilliant innovations that have transformed human life. The Eagle soars high and sees far. The Eagle has given us allopathic medicine, modern communication, the ability to connect across oceans. But the Eagle, flying alone, has also brought us to the edge of ecological collapse, to wars fought with weapons that could end everything, to systems that value profit over life.
 
 The Condor represents the path of the heart — Indigenous wisdom, connection to Earth, community, ceremony, the deep knowing that we are not separate from the land or from each other. The Condor has carried this wisdom for millennia, often in the face of genocide and erasure.
 
-The prophecy says that we are living in the time when the Condor and the Eagle must learn to fly together. Neither path alone is sufficient. The Eagle without the Condor is brilliant but destructive. The Condor without the Eagle is wise but vulnerable.
+ Neither path alone is sufficient. The Eagle without the Condor is brilliant but destructive. The Condor without the Eagle is wise but vulnerable.  Now is the time for the two to learn to fly together.
+
 
 **We need both.**
 
