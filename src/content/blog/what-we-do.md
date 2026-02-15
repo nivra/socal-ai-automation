@@ -16,7 +16,7 @@ We talk a lot about values — and we mean every word. But values without execut
 
 Volunteer hosts were juggling between systems just to check someone in at the door. Teachers and admins were spending more time managing platforms than creating classes.
 
-**What we built:** An integrated event check-in system that unified all those platforms into a single workflow. Automated posting across listing and marketing channels. Streamlined check-in so volunteer hosts could do it easily without training on a dozen tools.
+**The solution:** An integrated event check-in system that unified all those platforms into a single workflow. Automated posting across listing and marketing channels. Streamlined check-in so volunteer hosts could do it easily without training on a dozen tools.
 
 **The result:** Teachers focus on creating classes and teaching students. Admins manage one system instead of twelve. Volunteer hosts check people in with confidence. The studio runs on its mission, not its admin burden.
 
@@ -24,11 +24,11 @@ Volunteer hosts were juggling between systems just to check someone in at the do
 
 ### Trans-Femme Fitness Studio — Global Client Communication
 
-**The problem:** A fitness studio serving a global client base of trans femmes looking to embody their authentic selves was drowning in communication fragmentation. Their marketing platform (GoHighLevel) wasn't talking to their communication channels — phone, text, Telegram, Facebook groups, Instagram, and Twitter. Coordinating with clients across time zones and platforms was eating hours every day.
+**The problem:** A fitness studio serving a global client base of trans femmes looking to embody their authentic selves was drowning in communication fragmentation. Their marketing platform (GoHighLevel) wasn't talking to their communication channels — phone, text, Telegram, Facebook groups, Instagram, and Twitter. Coordinating with potential clients, existing clients across time zones and platforms was eating hours every day.
 
-**What we planned:** A unified communication system that integrates GoHighLevel with all their channels, automating routine coordination so the studio can focus on what they do best — helping trans femmes feel at home in their bodies.
+**The solution:** A unified communication system that integrates GoHighLevel with all their channels, automating routine coordination and customer sales pipelines so the studio can focus on what they do best — helping trans femmes feel at home in their bodies.
 
-**The goal:** One place to manage client communication. Automated scheduling and follow-ups across channels. Less time managing platforms, more time changing lives.
+**The result:** One place to manage client communication. Automated scheduling and follow-ups across channels. Less time managing platforms, more time changing lives.
 
 ---
 
