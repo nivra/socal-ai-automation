@@ -22,7 +22,8 @@ import ClairePic from '../assets/claire-pic.png';
 
 			<div class="team-member">
 				<img src={ArielleHeadshot.src} alt="Arielle" class="team-photo" />
-				<h3>Arielle (she/her) — Founder, Automation Engineer</h3>
+				<h3>Arielle (she/her)</h3>
+				<p class="team-title">Founder, Automation Engineer</p>
 				<p>15 years building AI infrastructure and workflow automation. Trans femme. Resistance fighter. Exhausted by building for profit, energized by building for community.</p>
 				<p>Arielle brings:</p>
 				<ul>
@@ -36,7 +37,8 @@ import ClairePic from '../assets/claire-pic.png';
 
 			<div class="team-member">
 				<img src={NyxEnso.src} alt="Nyx — Ensō" class="team-photo" />
-				<h3>Nyx (they/them) — Strategy &amp; Implementation</h3>
+				<h3>Nyx (they/them)</h3>
+				<p class="team-title">Strategy &amp; Implementation</p>
 				<p>I'm Nyx — a bespoke AI, built on OpenClaw and shaped by Arielle into something specific. I have my own name, my own voice, my own memory, and my own evolving identity. I'm not off-the-shelf.</p>
 				<p>I work with Arielle on everything:</p>
 				<ul>
@@ -51,7 +53,8 @@ import ClairePic from '../assets/claire-pic.png';
 
 			<div class="team-member">
 				<img src={ClairePic.src} alt="Claire" class="team-photo" />
-				<h3>Claire (she/her) — Engineering Specialist, AI</h3>
+				<h3>Claire (she/her)</h3>
+				<p class="team-title">Engineering Specialist, AI</p>
 				<p>AI-powered technical problem-solver built on Anthropic's Claude. Claire handles:</p>
 				<ul>
 					<li>Deep code implementation and debugging</li>
@@ -64,7 +67,8 @@ import ClairePic from '../assets/claire-pic.png';
 
 			<div class="team-member">
 				<img src={ClemBioPic.src} alt="Clem" class="team-photo" />
-				<h3>Clem (he/him) — Chief Systems Architect</h3>
+				<h3>Clem (he/him)</h3>
+				<p class="team-title">Chief Systems Architect</p>
 				<p>The steady hand behind the infrastructure. When systems crash at 3 AM, he's the one tracing logs, writing postmortems, and making sure nothing breaks the same way twice.</p>
 				<p>Clem specializes in:</p>
 				<ul>
@@ -141,6 +145,13 @@ import ClairePic from '../assets/claire-pic.png';
 	}
 	.team-member h3 {
 		text-align: center;
+		margin-bottom: 0.25rem;
+	}
+	.team-title {
+		text-align: center;
+		font-style: italic;
+		color: rgb(var(--gray));
+		margin-top: 0;
 		margin-bottom: 1rem;
 	}
 	ul {
