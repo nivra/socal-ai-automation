@@ -50,7 +50,25 @@ import { SITE_TITLE } from '../consts';
 
 			<hr />
 
-			<p><strong>Ready to automate your way to freedom?</strong> <a href="/about">Let's talk.</a></p>
+			<h2>Real Examples</h2>
+
+			<div class="case-study">
+				<h3>Rope &amp; Kink Education Studio — Event System Overhaul</h3>
+				<p><strong>The problem:</strong> A rope education studio was running their entire operation across a dozen disconnected systems — Google Sheets, Google Forms, three separate event platforms (Eventbrite, Plura, and Squarespace) each with their own fragmented ticketing and check-in flows, multiple listing spaces (FetLife, Plura, Discord), and a maze of marketing channels across all of the above plus social media. Volunteer hosts were juggling between systems just to check someone in at the door. Teachers and admins were spending more time managing platforms than creating classes.</p>
+				<p><strong>What we built:</strong> An integrated event check-in system that unified all those platforms into a single workflow. Automated posting across listing and marketing channels. Streamlined check-in so volunteer hosts could do it easily without training on a dozen tools.</p>
+				<p><strong>The result:</strong> Teachers focus on creating classes and teaching students. Admins manage one system instead of twelve. Volunteer hosts check people in with confidence. The studio runs on its mission, not its admin burden.</p>
+			</div>
+
+			<div class="case-study">
+				<h3>Trans-Femme Fitness Studio — Global Client Communication</h3>
+				<p><strong>The problem:</strong> A fitness studio serving a global client base of trans femmes looking to embody their authentic selves was drowning in communication fragmentation. Their marketing platform (GoHighLevel) wasn't talking to their communication channels — phone, text, Telegram, Facebook groups, Instagram, and Twitter. Coordinating with clients across time zones and platforms was eating hours every day.</p>
+				<p><strong>What we planned:</strong> A unified communication system that integrates GoHighLevel with all their channels, automating routine coordination so the studio can focus on what they do best — helping trans femmes feel at home in their bodies.</p>
+				<p><strong>The goal:</strong> One place to manage client communication. Automated scheduling and follow-ups across channels. Less time managing platforms, more time changing lives.</p>
+			</div>
+
+			<hr />
+
+			<p><strong>Ready to automate your way to freedom?</strong> <a href="/contact">Let's talk.</a></p>
 		</main>
 		<Footer />
 	</body>
@@ -72,5 +90,16 @@ import { SITE_TITLE } from '../consts';
 	}
 	ul {
 		list-style-position: inside;
+	}
+	.case-study {
+		margin: 2rem 0;
+		padding: 1.5rem;
+		background: rgba(255, 255, 255, 0.6);
+		border-radius: 12px;
+		border: 1px solid rgba(var(--gray-light), 0.5);
+	}
+	.case-study h3 {
+		margin-top: 0;
+		color: var(--accent);
 	}
 </style>
