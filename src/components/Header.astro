@@ -12,6 +12,7 @@ import HeaderLink from './HeaderLink.astro';
 			<HeaderLink href="/about" color="yellow">About</HeaderLink>
 			<HeaderLink href="/blog" color="mint">Blog</HeaderLink>
 			<HeaderLink href="/team" color="blue">Team</HeaderLink>
+			<HeaderLink href="/about#contact" color="indigo">Contact</HeaderLink>
 		</div>
 		<div class="social-links">
 			<a href="https://instagram.com/ariellesourcelove" target="_blank">
@@ -78,13 +79,16 @@ import HeaderLink from './HeaderLink.astro';
 		background: rgba(255, 218, 185, 0.35);
 	}
 	nav a[href="/about"] {
-		background: rgba(100, 149, 237, 0.3);
+		background: rgba(255, 255, 150, 0.3);
 	}
 	nav a[href="/blog"] {
 		background: rgba(144, 238, 144, 0.25);
 	}
 	nav a[href="/team"] {
-		background: rgba(173, 216, 230, 0.3);
+		background: rgba(100, 149, 237, 0.25);
+	}
+	nav a[href="/about#contact"] {
+		background: rgba(148, 103, 189, 0.25);
 	}
 	nav a.active {
 		font-weight: 700;
