@@ -1,0 +1,152 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`Contact | ${SITE_TITLE}`} description="Get in touch with SoCal AI Automation." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Let's Talk</h1>
+
+			<p>Book a free consultation below — 15 minutes to explore what's possible, or a full hour to dig into your workflows and build a plan.</p>
+
+			<div class="calendly-embed">
+				<iframe src="https://calendly.com/scaa-arielle" width="100%" height="650" frameborder="0"></iframe>
+			</div>
+
+			<hr />
+
+			<h2>Other Ways to Reach Us</h2>
+
+			<div class="contact-methods">
+				<div class="contact-item">
+					<strong>Phone</strong>
+					<p><a href="tel:+16197326822">(619) 732-6822</a></p>
+				</div>
+
+				<div class="contact-item">
+					<strong>Email</strong>
+					<p><a href="mailto:arielle@socalaiautomation.com">arielle@socalaiautomation.com</a></p>
+				</div>
+
+				<div class="contact-item">
+					<strong>Instagram</strong>
+					<p><a href="https://instagram.com/ariellesourcelove" target="_blank">@ariellesourcelove</a></p>
+				</div>
+
+				<div class="contact-item">
+					<strong>GitHub</strong>
+					<p><a href="https://github.com/nivra" target="_blank">@nivra</a></p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2>Send Us a Message</h2>
+
+			<form class="contact-form" name="contact" method="POST" data-netlify="true">
+				<input type="hidden" name="form-name" value="contact" />
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" required />
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" required />
+				</div>
+				<div class="form-group">
+					<label for="message">Message</label>
+					<textarea id="message" name="message" rows="5" required></textarea>
+				</div>
+				<button type="submit">Send</button>
+			</form>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+		color: rgb(var(--gray-dark));
+	}
+	h1 {
+		margin-top: 4rem;
+		text-align: center;
+	}
+	h2 {
+		margin-top: 2rem;
+	}
+	.calendly-embed {
+		margin-top: 2rem;
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	.calendly-embed iframe {
+		border: none;
+	}
+	.contact-methods {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+	}
+	.contact-item strong {
+		display: block;
+		margin-bottom: 0.25rem;
+	}
+	.contact-item a {
+		color: var(--accent);
+	}
+	.contact-form {
+		margin-top: 1.5rem;
+	}
+	.form-group {
+		margin-bottom: 1rem;
+	}
+	.form-group label {
+		display: block;
+		margin-bottom: 0.25rem;
+		font-weight: 500;
+	}
+	.form-group input,
+	.form-group textarea {
+		width: 100%;
+		padding: 0.5rem;
+		border: 1px solid rgba(var(--gray-light), 0.8);
+		border-radius: 6px;
+		font-size: 1rem;
+		font-family: inherit;
+	}
+	.form-group textarea {
+		resize: vertical;
+	}
+	button[type="submit"] {
+		background: var(--accent);
+		color: white;
+		border: none;
+		padding: 0.75rem 2rem;
+		border-radius: 20px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+	button[type="submit"]:hover {
+		background: var(--accent-dark);
+	}
+	@media (max-width: 480px) {
+		.contact-methods {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
