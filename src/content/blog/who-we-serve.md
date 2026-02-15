@@ -1,6 +1,6 @@
 ---
-title: "Who We Serve and Why"
-description: "We serve the people building something different. Here's why."
+title: "Who We Serve"
+description: "We serve the people building something different. Here they are."
 pubDate: "Feb 14 2026"
 ---
 
@@ -20,12 +20,12 @@ Big tech builds automation tools for corporations. Enterprise AI serves enterpri
 
 They're doing transformative work with insufficient tools. That's not a market gap — it's an injustice.
 
-## What we've seen
+## Who are these people really?
 
-We've worked with:
+We want to work with:
 
 - **Services with soul.** Trans-femme fitness and wellness. Kink and rope education. Community clinics. Healing spaces. Places where the work is deeply personal and the admin burden is crushing.
-- **Businesses that feed their communities.** Food that matters. Supply chains that honor dignity. Restaurants and shops that are community anchors, not just storefronts.
+- **Businesses that feed their communities.** Food that matters. Supply chains that honor dignity. Restaurants, shops, and third spaces that are community anchors, not just storefronts.
 - **Resistance infrastructure.** Organizing networks. Education. Mutual aid. Community villages. The connective tissue that holds marginalized communities together.
 
 These are the people we understand because these are the communities we move in. We're not outsiders offering charity. We're insiders offering expertise.
@@ -36,4 +36,4 @@ Fifteen years of building automation systems for corporations taught us somethin
 
 The technology exists. It's just been pointed in the wrong direction.
 
-We're pointing it home.
+We're pointing it home.  Back to the village.  Back to the people.
