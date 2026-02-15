@@ -16,7 +16,7 @@ Right now, the answer is clear. AI is being built by corporations, for the rich,
 
 ## The Prophecy of the Condor and the Eagle
 
-There is a prophecy shared across Indigenous traditions of the Americas — the prophecy of the Condor and the Eagle. I first encountered it in 2010, while practicing with Ayahuasca ceremonial communities, and it has shaped how I see the world ever since.  Thi
+There is a prophecy shared across Indigenous traditions of the Americas — the prophecy of the Condor and the Eagle. I first encountered it in 2010, while practicing with Ayahuasca ceremonial communities, and it has shaped how I see the world ever since.
 
 The prophecy says that the Condor owned the skies for thousands of years, but then the Eagle rose, and the Eagle owned the skies for hundreds of years.   But now, we are living in the time when the Condor and the Eagle must learn to fly together.  
 
