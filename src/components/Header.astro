@@ -37,12 +37,17 @@ import HeaderLink from './HeaderLink.astro';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
+		background: linear-gradient(135deg, rgba(255, 192, 203, 0.15) 0%, rgba(100, 149, 237, 0.2) 100%);
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
 	h2 {
 		margin: 0;
-		font-size: 1em;
+		font-size: 1.2em;
+		font-weight: 700;
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 
 	h2 a,
