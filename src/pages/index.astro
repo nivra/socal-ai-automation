@@ -28,7 +28,7 @@ const sortedPosts = posts.sort((a, b) => new Date(b.data.pubDate).valueOf() - ne
 			</section>
 
 			<section class="posts">
-				<h2>What we do</h2>
+				<h2>From Our Blog</h2>
 				{sortedPosts.map((post) => (
 					<article>
 						<a href={`/blog/${post.id}/`}>

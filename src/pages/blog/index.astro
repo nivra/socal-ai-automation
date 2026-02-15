@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -15,100 +14,138 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
+			<h1>Blog</h1>
+			<div class="blog-layout">
+				<nav class="blog-nav">
+					<h3>Posts</h3>
+					<ul class="nav-list">
+						{posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
+								<a href={`#${post.id}`}>{post.data.title}</a>
 							</li>
-						))
-					}
-				</ul>
-			</section>
+						))}
+					</ul>
+				</nav>
+				<div class="blog-entries">
+					{posts.map((post) => (
+						<article id={post.id} class="blog-entry">
+							<a href={`/blog/${post.id}/`}>
+								<h2>{post.data.title}</h2>
+							</a>
+							<p class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</p>
+							<p class="description">{post.data.description}</p>
+							<a href={`/blog/${post.id}/`} class="read-more">Read more</a>
+						</article>
+					))}
+				</div>
+			</div>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 1em;
+		color: rgb(var(--gray-dark));
+	}
+	h1 {
+		margin-top: 4rem;
+		text-align: center;
+	}
+	.blog-layout {
+		display: flex;
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+	.blog-nav {
+		flex: 0 0 220px;
+		position: sticky;
+		top: 2rem;
+		align-self: flex-start;
+	}
+	.blog-nav h3 {
+		margin: 0 0 1rem 0;
+		font-size: 1rem;
+		color: rgb(var(--gray));
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+	.nav-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.nav-list li {
+		margin-bottom: 0.5rem;
+	}
+	.nav-list a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		font-size: 0.9rem;
+		padding: 0.4rem 0.6rem;
+		border-radius: 6px;
+		display: block;
+		transition: all 0.2s;
+	}
+	.nav-list a:hover {
+		background: rgba(var(--accent-rgb, 255, 20, 147), 0.1);
+		color: var(--accent);
+	}
+	.blog-entries {
+		flex: 1;
+	}
+	.blog-entry {
+		margin-bottom: 2.5rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid rgba(var(--gray-light), 0.5);
+	}
+	.blog-entry:last-child {
+		border-bottom: none;
+	}
+	.blog-entry h2 {
+		margin: 0 0 0.25rem 0;
+	}
+	.blog-entry a {
+		text-decoration: none;
+		color: rgb(var(--black));
+	}
+	.blog-entry a:hover h2 {
+		color: var(--accent);
+	}
+	.date {
+		margin: 0 0 0.75rem 0;
+		color: rgb(var(--gray));
+		font-size: 0.9rem;
+	}
+	.description {
+		margin: 0 0 1rem 0;
+		line-height: 1.6;
+	}
+	.read-more {
+		color: var(--accent) !important;
+		font-weight: 500;
+		font-size: 0.9rem;
+	}
+	.read-more:hover {
+		text-decoration: underline !important;
+	}
+	@media (max-width: 720px) {
+		.blog-layout {
+			flex-direction: column;
+		}
+		.blog-nav {
+			position: static;
+			flex: none;
+		}
+	}
+</style>
