@@ -35,7 +35,7 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(135deg, rgba(255, 192, 203, 0.08) 0%, rgba(100, 149, 237, 0.04) 100%);
+	background: linear-gradient(135deg, rgba(255, 192, 203, 0.15) 0%, rgba(100, 149, 237, 0.1) 100%);
 	min-height: 100vh;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
