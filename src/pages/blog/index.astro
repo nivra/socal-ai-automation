@@ -10,8 +10,8 @@ const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-// Extract first ~300 chars of plain text from each post body for previews
-function getExcerpt(body: string, maxLen = 300) {
+// Extract text up to the first sentence ending after ~300 chars
+function getExcerpt(body: string, minLen = 300) {
 	// Strip markdown headings, bold, italic, links, images
 	const plain = body
 		.replace(/^#{1,6}\s+.*$/gm, '')
@@ -19,10 +19,16 @@ function getExcerpt(body: string, maxLen = 300) {
 		.replace(/\*([^*]+)\*/g, '$1')
 		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
 		.replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
-		.replace(/\n{2,}/g, '\n')
+		.replace(/\n{2,}/g, ' ')
 		.trim();
-	if (plain.length <= maxLen) return plain;
-	return plain.slice(0, maxLen).replace(/\s+\S*$/, '') + '…';
+	if (plain.length <= minLen) return plain;
+	// Find the next sentence-ending punctuation after minLen
+	const sentenceEnd = plain.slice(minLen).search(/[.!?]\s/);
+	if (sentenceEnd !== -1) return plain.slice(0, minLen + sentenceEnd + 1);
+	// Fallback: if no sentence end found within reason, cut at next period
+	const period = plain.indexOf('.', minLen);
+	if (period !== -1 && period < minLen + 200) return plain.slice(0, period + 1);
+	return plain.slice(0, minLen).replace(/\s+\S*$/, '') + '…';
 }
 ---
 
