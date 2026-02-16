@@ -20,32 +20,18 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<h1>Blog</h1>
-			<div class="blog-layout">
-				<nav class="blog-nav">
-					<h3>Posts</h3>
-					<ul class="nav-list">
-						{posts.map((post) => (
-							<li>
-								<a href={`#${post.id}`}>{post.data.title}</a>
-							</li>
-						))}
-					</ul>
-				</nav>
-				<div class="blog-entries">
-					{posts.map((post) => (
-						<article id={post.id} class="blog-entry">
-							<a href={`/blog/${post.id}/`}>
-								<h2>{post.data.title}</h2>
-							</a>
-							<p class="date">
-								<FormattedDate date={post.data.pubDate} />
-							</p>
-							<p class="description">{post.data.description}</p>
-							<a href={`/blog/${post.id}/`} class="read-more">Read more</a>
-						</article>
-					))}
-				</div>
-			</div>
+			{posts.map((post) => (
+				<article class="blog-entry">
+					<a href={`/blog/${post.id}/`}>
+						<h2>{post.data.title}</h2>
+					</a>
+					<p class="date">
+						<FormattedDate date={post.data.pubDate} />
+					</p>
+					<p class="description">{post.data.description}</p>
+					<a href={`/blog/${post.id}/`} class="read-more">Read more →</a>
+				</article>
+			))}
 		</main>
 		<Footer />
 	</body>
@@ -53,7 +39,7 @@ const posts = (await getCollection('blog')).sort(
 
 <style>
 	main {
-		max-width: 960px;
+		max-width: 720px;
 		margin: 0 auto;
 		padding: 1em;
 		color: rgb(var(--gray-dark));
@@ -61,49 +47,6 @@ const posts = (await getCollection('blog')).sort(
 	h1 {
 		margin-top: 4rem;
 		text-align: center;
-	}
-	.blog-layout {
-		display: flex;
-		gap: 2rem;
-		margin-top: 2rem;
-	}
-	.blog-nav {
-		flex: 0 0 220px;
-		position: sticky;
-		top: 2rem;
-		align-self: flex-start;
-	}
-	.blog-nav h3 {
-		margin: 0 0 1rem 0;
-		font-size: 1rem;
-		color: rgb(var(--gray));
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-	.nav-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	.nav-list li {
-		margin-bottom: 0.5rem;
-	}
-	.nav-list a {
-		color: var(--accent);
-		text-decoration: none;
-		font-size: 0.9rem;
-		padding: 0.4rem 0.6rem;
-		border-radius: 6px;
-		display: block;
-		transition: all 0.2s;
-		border-left: 2px solid var(--accent);
-	}
-	.nav-list a:hover {
-		background: rgba(255, 20, 147, 0.1);
-		color: var(--accent-dark);
-	}
-	.blog-entries {
-		flex: 1;
 	}
 	.blog-entry {
 		margin-bottom: 2.5rem;
@@ -139,14 +82,5 @@ const posts = (await getCollection('blog')).sort(
 	}
 	.read-more:hover {
 		text-decoration: underline !important;
-	}
-	@media (max-width: 720px) {
-		.blog-layout {
-			flex-direction: column;
-		}
-		.blog-nav {
-			position: static;
-			flex: none;
-		}
 	}
 </style>
