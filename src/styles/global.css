@@ -44,8 +44,8 @@ body {
 	line-height: 1.7;
 }
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
+	max-width: 720px;
+	width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
 }
@@ -133,6 +133,15 @@ hr {
 	}
 	main {
 		padding: 1em;
+	}
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.6em;
+	}
+	h3 {
+		font-size: 1.3em;
 	}
 }
 
