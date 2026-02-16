@@ -6,6 +6,10 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+			<svg class="icon-open" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+			<svg class="icon-close" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+		</button>
 		<div class="internal-links">
 			<HeaderLink href="/" color="pink">Home</HeaderLink>
 			<HeaderLink href="/services" color="peach">Services</HeaderLink>
@@ -36,6 +40,15 @@ import HeaderLink from './HeaderLink.astro';
 		</div>
 	</nav>
 </header>
+<script>
+	const toggle = document.querySelector('.menu-toggle');
+	const links = document.querySelector('.internal-links');
+	toggle?.addEventListener('click', () => {
+		const expanded = toggle.getAttribute('aria-expanded') === 'true';
+		toggle.setAttribute('aria-expanded', String(!expanded));
+		links?.classList.toggle('open');
+	});
+</script>
 <style>
 	header {
 		margin: 0;
@@ -61,6 +74,13 @@ import HeaderLink from './HeaderLink.astro';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.5em;
+	}
+	.internal-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
 	}
 	nav a {
 		padding: 0.6em 1.2em;
@@ -94,11 +114,43 @@ import HeaderLink from './HeaderLink.astro';
 		font-weight: 700;
 		box-shadow: 0 2px 6px rgba(var(--black), 10%);
 	}
+	.menu-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		padding: 0.25em;
+	}
+	.menu-toggle .icon-close {
+		display: none;
+	}
+	.menu-toggle[aria-expanded="true"] .icon-open {
+		display: none;
+	}
+	.menu-toggle[aria-expanded="true"] .icon-close {
+		display: block;
+	}
 	.social-links,
 	.social-links a {
 		display: flex;
 	}
 	@media (max-width: 720px) {
+		.menu-toggle {
+			display: block;
+		}
+		.internal-links {
+			display: none;
+			width: 100%;
+			flex-direction: column;
+			padding-top: 0.75em;
+		}
+		.internal-links.open {
+			display: flex;
+		}
+		.internal-links a {
+			text-align: center;
+		}
 		.social-links {
 			display: none;
 		}
