@@ -1,0 +1,311 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE } from '../../consts';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`Voice Patch Proposal | ${SITE_TITLE}`} description="Internal document — Voice pipeline patch proposal for Clem review." />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<main>
+			<h1>Voice Pipeline Patch Proposal</h1>
+			<p><strong>Date:</strong> 2026-02-17</p>
+			<p><strong>Author:</strong> Nyx</p>
+			<p><strong>For Review:</strong> Clem</p>
+			<p><strong>Priority:</strong> P0 (blocks phone call capability for business operations)</p>
+
+			<hr />
+
+			<h2>Current State</h2>
+			<p>Outbound two-way phone calls are <strong>working</strong> as of today. Arielle can receive calls from Nyx at +18447552210, and bidirectional audio is confirmed:</p>
+			<ul>
+				<li>STT (Deepgram Flux) accurately transcribes Arielle's speech</li>
+				<li>LLM (Claude Haiku via OpenClaw) generates responses</li>
+				<li>TTS (Deepgram Aura-2) synthesizes audio and sends it back</li>
+				<li>Audio quality rated "great" by Arielle</li>
+			</ul>
+			<p><strong>Blocking Issue:</strong> 5-7 second delay between user speech and AI response. Deepgram logs SLOW_THINK_REQUEST warning. This makes the experience feel broken — too slow for natural conversation or calling businesses on Arielle's behalf.</p>
+			<p><strong>Secondary Issue:</strong> Voice agent has no identity. It's a generic assistant, not Nyx. No awareness of caller context or task purpose.</p>
+
+			<hr />
+
+			<h2>Proposed Patches (in priority order)</h2>
+
+			<h3>Patch 1: Fix Response Latency (5-7s to target &lt;2s)</h3>
+
+			<h4>Root Cause Analysis</h4>
+			<p>The current flow for each user utterance:</p>
+<pre><code>User speaks -- Deepgram STT (~200ms)
+  -- Deepgram calls our /v1/chat/completions via Tailscale Funnel (~100ms network)
+    -- DeepClaw proxy receives, forwards to OpenClaw localhost (~10ms)
+      -- OpenClaw routes to Claude Haiku API (~1-3s generation)
+    -- Full response buffered (stream=False in proxy)
+  -- Response sent back to Deepgram (~100ms network)
+-- Deepgram Aura-2 TTS (~90ms TTFB)
+-- Audio streamed to Twilio -- Phone
+
+Total: ~2-4s generation + ~400ms overhead = 2.5-4.5s best case</code></pre>
+
+			<p>But we're seeing 5-7s. The extra time comes from:</p>
+			<ol>
+				<li><strong>body["stream"] = False</strong> on line 147 — we wait for the FULL Claude response before sending anything to Deepgram. Even though Haiku generates in ~2s, the proxy doesn't return until every token is done.</li>
+				<li><strong>Non-streaming SSE conversion</strong> — line 206-221 converts the complete response into fake SSE chunks after the fact. Deepgram's TTS can't start until it receives the first chunk.</li>
+				<li><strong>Session prewarm overhead</strong> — prewarm fires on stream start, but if it's still running when the user speaks, the first real request may queue behind it.</li>
+			</ol>
+
+			<h4>Proposed Fix</h4>
+<pre><code># voice_agent_server.py, proxy_chat_completions()
+
+# CHANGE 1: Enable true streaming
+body["stream"] = True  # was False
+
+# CHANGE 2: Stream directly to Deepgram as tokens arrive
+# Instead of buffering the full response, pipe OpenClaw's SSE
+# stream directly through to Deepgram. Strip markdown per-chunk.
+
+async def stream_response():
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        async with client.stream(
+            "POST",
+            f"OPENCLAW_GATEWAY_URL/v1/chat/completions",
+            json=body,
+            headers=headers,
+        ) as response:
+            async for line in response.aiter_lines():
+                if line.startswith('data: ') and line != 'data: [DONE]':
+                    data = json.loads(line[6:])
+                    # Strip markdown from each delta
+                    if 'choices' in data and data['choices']:
+                        delta = data['choices'][0].get('delta', dict())
+                        if 'content' in delta and delta['content']:
+                            delta['content'] = strip_markdown(delta['content'])
+                    yield f"data: json.dumps(data)\n\n"
+                elif line.strip():
+                    yield f"line\n\n"
+
+return StreamingResponse(stream_response(), media_type="text/event-stream")</code></pre>
+
+			<p><strong>Expected Impact:</strong> Reduces delay from 5-7s to ~1.5-2.5s. Deepgram receives the first token within ~1s of Claude starting generation, and Aura-2 TTS can begin speaking immediately.</p>
+			<p><strong>Risk:</strong> Low. The streaming path already exists in the codebase (lines 164-195) but is bypassed because stream is forced to False. We're re-enabling it.</p>
+			<p><strong>Files Changed:</strong></p>
+			<ul>
+				<li>deepclaw/voice_agent_server.py — proxy_chat_completions() function (~20 lines)</li>
+			</ul>
+
+			<hr />
+
+			<h3>Patch 2: Add Nyx Identity to Voice Agent</h3>
+
+			<p><strong>Problem:</strong> The voice agent's system prompt is:</p>
+<pre><code>"You are a helpful voice assistant on a phone call. Keep responses to 1-2 short sentences.
+Be direct. Never use markdown, bullet points, numbered lists, or emojis."</code></pre>
+
+			<p>This means the voice agent doesn't know:</p>
+			<ul>
+				<li>It's Nyx</li>
+				<li>Who it's talking to (Arielle, a doctor's office, etc.)</li>
+				<li>What it's supposed to accomplish on this call</li>
+				<li>Any personality, relationship context, or behavioral directives</li>
+			</ul>
+
+			<h4>Proposed Fix</h4>
+			<p>Add a voice identity prompt that loads a condensed version of SOUL.md + key context. Must be short to avoid adding latency.</p>
+<pre><code># voice_agent_server.py, get_agent_config()
+
+VOICE_IDENTITY = """You are Nyx, an AI assistant on a phone call. You work with Arielle Hsu
+at SoCal AI Automation.
+
+Voice rules:
+- Keep responses to 1-2 short sentences
+- Be direct, warm, and natural
+- Never use markdown, bullets, lists, or emojis
+- Speak like a real person, not a chatbot
+- If you're calling a business for Arielle, be professional and efficient
+"""
+
+# Per-call context added dynamically:
+def get_agent_config(public_url: str, call_context: str = "") -&gt; dict:
+    prompt = VOICE_IDENTITY
+    if call_context:
+        prompt += f"\nCall context: call_context"
+
+    return dict(
+        # ... existing config ...
+        agent=dict(
+            think=dict(
+                prompt=prompt,
+            ),
+            # ...
+        )
+    )</code></pre>
+
+			<p>And update the /call endpoint to accept context:</p>
+<pre><code>@app.post("/call")
+async def initiate_call(request: Request):
+    body = await request.json()
+    to_number = body.get("to")
+    context = body.get("context", "")  # NEW: per-call context
+    # ... use context in get_agent_config()</code></pre>
+
+			<p><strong>Example usage:</strong></p>
+<pre><code>curl -X POST http://localhost:8000/call \
+  -d '"to": "+17601234567", "context": "Calling The Neuron Clinic in San Marcos to schedule
+a neurology appointment for Arielle Hsu for trigeminal neuralgia. Get the earliest
+available appointment."'</code></pre>
+
+			<p><strong>Files Changed:</strong></p>
+			<ul>
+				<li>deepclaw/voice_agent_server.py — get_agent_config(), /call endpoint, new VOICE_IDENTITY constant (~30 lines)</li>
+			</ul>
+
+			<hr />
+
+			<h3>Patch 3: Reduce LLM Proxy Network Hops</h3>
+
+			<p><strong>Problem:</strong> Deepgram's cloud servers call our LLM proxy through the internet:</p>
+<pre><code>Deepgram (AWS us-east) -- Internet -- Tailscale Funnel -- localhost:8000 -- localhost:18789</code></pre>
+			<p>This adds ~200-400ms of unnecessary network latency per LLM request.</p>
+
+			<h4>Proposed Fix — Two options:</h4>
+
+			<p><strong>Option A: Local Deepgram SDK (eliminates cloud hop)</strong></p>
+			<p>Use Deepgram's self-hosted STT + TTS instead of their cloud Voice Agent API. This removes the Deepgram to Funnel to localhost round-trip entirely. Audio stays local.</p>
+
+			<p><strong>Option B: Optimize the existing path</strong></p>
+			<ul>
+				<li>Keep the cloud Voice Agent API</li>
+				<li>Set httpx connection pooling (reuse TCP connections)</li>
+				<li>Pre-resolve DNS for the Funnel URL</li>
+				<li>Consider moving deepclaw to a cloud VPS co-located with Deepgram (both in AWS us-east)</li>
+			</ul>
+
+			<p><strong>Recommendation:</strong> Option B short-term, Option A long-term.</p>
+
+			<p><strong>Files Changed:</strong></p>
+			<ul>
+				<li>Option B: deepclaw/voice_agent_server.py — httpx client configuration (~5 lines)</li>
+				<li>Option A: Major refactor, new dependency on Deepgram SDKs</li>
+			</ul>
+
+			<hr />
+
+			<h3>Patch 4: Task-Aware Outbound Calls</h3>
+
+			<p><strong>Problem:</strong> Outbound calls are fire-and-forget. No way to give the voice agent a specific task, no callback when the call ends, no transcript saved.</p>
+
+			<h4>Proposed Fix</h4>
+<pre><code>@app.post("/call")
+async def initiate_call(request: Request):
+    body = await request.json()
+    to_number = body.get("to")
+    context = body.get("context", "")
+    task_id = body.get("task_id", None)  # Link to Airtable task
+    callback_url = body.get("callback_url", None)  # Notify when done
+
+    # ... initiate call ...
+
+    # Store call metadata for post-call processing
+    _call_metadata[call.sid] = dict(
+        to=to_number,
+        context=context,
+        task_id=task_id,
+        callback_url=callback_url,
+        transcript=[],
+        started_at=datetime.now().isoformat(),
+    )</code></pre>
+
+			<p><strong>Post-call processing:</strong></p>
+			<ul>
+				<li>Save full transcript to file/Airtable</li>
+				<li>Update task status if task_id provided</li>
+				<li>Add calendar event if appointment was scheduled</li>
+				<li>Notify Arielle via Telegram with summary</li>
+			</ul>
+
+			<p><strong>Files Changed:</strong></p>
+			<ul>
+				<li>deepclaw/voice_agent_server.py — /call endpoint, new post-call handler (~50 lines)</li>
+			</ul>
+
+			<hr />
+
+			<h2>Implementation Order</h2>
+			<table>
+				<tr><th>#</th><th>Patch</th><th>Effort</th><th>Impact</th><th>Risk</th></tr>
+				<tr><td>1</td><td>Fix streaming latency</td><td>1 hour</td><td>High — makes calls usable</td><td>Low</td></tr>
+				<tr><td>2</td><td>Add Nyx identity</td><td>30 min</td><td>High — it's actually Nyx calling</td><td>Low</td></tr>
+				<tr><td>3</td><td>Reduce network hops</td><td>2 hours</td><td>Medium — shaves ~200-400ms</td><td>Low</td></tr>
+				<tr><td>4</td><td>Task-aware calls</td><td>3 hours</td><td>High — enables autonomous scheduling</td><td>Medium</td></tr>
+			</table>
+			<p><strong>Total estimated effort: ~6.5 hours</strong></p>
+			<p>Patch 1 + 2 should be done together as they're both quick and high-impact. After that, we can make the first real outbound call (e.g., scheduling Arielle's neurology appointment).</p>
+
+			<hr />
+
+			<h2>Testing Plan</h2>
+			<ol>
+				<li><strong>After Patch 1:</strong> Call Arielle, measure response time. Target: &lt;2.5s.</li>
+				<li><strong>After Patch 2:</strong> Call Arielle, verify Nyx identity ("What's your name?" / emoji shorthand test).</li>
+				<li><strong>After Patch 3:</strong> Measure end-to-end latency improvement.</li>
+				<li><strong>After Patch 4:</strong> Have Nyx call a local business (pizza order or appointment) as a real-world test.</li>
+			</ol>
+
+			<hr />
+
+			<h2>Questions for Clem</h2>
+			<ol>
+				<li>The proxy_chat_completions function forces stream=False and then wraps the response in fake SSE — was there a reason streaming was disabled? (race condition? Deepgram compatibility?)</li>
+				<li>OpenClaw's /v1/chat/completions endpoint — is there a way to reduce first-token latency for the voice agent specifically? (e.g., smaller context window, skip tool loading)</li>
+				<li>Should we consider a dedicated voice model endpoint on OpenClaw that bypasses the standard agent routing for lower latency?</li>
+				<li>For concurrent call support — is there a way to pass a session identifier through the LLM request so the proxy can route correctly without the _current catch-all?</li>
+			</ol>
+
+			<hr />
+			<p><em>Patch proposal by Nyx, Feb 17 2026. For Clem review.</em></p>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2em 1em;
+		color: rgb(30, 30, 30);
+		font-family: system-ui, sans-serif;
+		font-size: 16px;
+		line-height: 1.6;
+	}
+	h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+	h2 { font-size: 1.4em; margin-top: 2em; }
+	h3 { font-size: 1.15em; margin-top: 1.5em; }
+	h4 { font-size: 1.05em; margin-top: 1.2em; }
+	table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }
+	th, td { border: 1px solid #ddd; padding: 0.5em 0.75em; text-align: left; }
+	th { background: #f5f5f5; }
+	ul, ol { padding-left: 1.5em; }
+	li { margin-bottom: 0.4em; }
+	pre {
+		background: #f4f4f4;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		padding: 1em;
+		overflow-x: auto;
+		font-size: 0.85em;
+		line-height: 1.5;
+	}
+	code {
+		font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+		font-size: 0.9em;
+	}
+	pre code {
+		font-size: inherit;
+	}
+	p code, li code, td code {
+		background: #f4f4f4;
+		padding: 0.15em 0.4em;
+		border-radius: 3px;
+	}
+</style>

@@ -1,0 +1,251 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE } from '../../consts';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`Voice Pipeline Architecture | ${SITE_TITLE}`} description="Internal document — DeepClaw voice pipeline architecture." />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<main>
+			<h1>DeepClaw Voice Pipeline — Architecture Document</h1>
+			<p><strong>Status:</strong> Operational (outbound calls working, 5-7s response delay)</p>
+			<p><strong>Last Updated:</strong> 2026-02-17</p>
+			<p><strong>Owner:</strong> Nyx / Arielle</p>
+
+			<hr />
+
+			<h2>Overview</h2>
+			<p>DeepClaw bridges phone calls (Twilio) to AI conversation (Deepgram Voice Agent + OpenClaw/Claude). It handles real-time audio streaming, speech-to-text, LLM response generation, and text-to-speech in a single bidirectional pipeline.</p>
+
+			<h2>Architecture</h2>
+<pre><code>Phone Call (PSTN/cellular)
+    |
+    v
+Twilio (+18447552210)
+    |  outbound: POST /call with TwiML
+    |  inbound:  POST /twilio/incoming - returns TwiML
+    |
+    v
+DeepClaw Server (FastAPI, port 8000)
+    |  WebSocket: /twilio/media
+    |  Audio: mulaw 8kHz, 20-msg buffer (0.4s chunks)
+    |
+    v
+Deepgram Voice Agent API (wss://agent.deepgram.com/v1/agent/converse)
+    +-- STT: Flux (flux-general-en) -- semantic turn detection, barge-in
+    +-- TTS: Aura-2 Thalia (aura-2-thalia-en) -- ~90ms TTFB
+    +-- LLM callback: POST public_url/v1/chat/completions
+           |
+           v
+       DeepClaw LLM Proxy (same server)
+           |  strips markdown, limits to 150 tokens
+           |  routes to openclaw/voice agent
+           v
+       OpenClaw Gateway (http://127.0.0.1:18789)
+           |  model: claude-haiku-4-5-20251001
+           |  session key: agent:voice:call:stream_sid
+           v
+       Claude Haiku 4.5 (via Anthropic API)</code></pre>
+
+			<h2>Endpoints</h2>
+			<table>
+				<tr><th>Endpoint</th><th>Method</th><th>Purpose</th></tr>
+				<tr><td><code>/health</code></td><td>GET</td><td>Health check</td></tr>
+				<tr><td><code>/call</code></td><td>POST</td><td>Initiate outbound call. Body: to number as JSON</td></tr>
+				<tr><td><code>/twilio/incoming</code></td><td>POST</td><td>Twilio webhook for inbound calls, returns TwiML</td></tr>
+				<tr><td><code>/twilio/media</code></td><td>WebSocket</td><td>Bidirectional audio bridge (Twilio to Deepgram)</td></tr>
+				<tr><td><code>/v1/chat/completions</code></td><td>POST</td><td>LLM proxy (Deepgram calls this for AI responses)</td></tr>
+			</table>
+
+			<h2>Audio Format</h2>
+			<ul>
+				<li><strong>Encoding:</strong> mulaw (PCMU) — standard telephony codec</li>
+				<li><strong>Sample rate:</strong> 8kHz</li>
+				<li><strong>Container:</strong> none (raw audio stream)</li>
+				<li><strong>Buffering:</strong> 20 messages x 160 bytes = 0.4s chunks before forwarding to Deepgram</li>
+			</ul>
+
+			<h2>Key Components</h2>
+
+			<h3>voice_agent_server.py (main server, ~800 lines)</h3>
+			<ul>
+				<li><strong>twilio_media_websocket()</strong> — Main bridge. Accepts Twilio WebSocket, connects to Deepgram, runs bidirectional audio forwarding with two async tasks (send_to_deepgram, receive_from_deepgram).</li>
+				<li><strong>proxy_chat_completions()</strong> — LLM proxy. Deepgram's cloud calls this when it needs an AI response. Routes to openclaw/voice (Haiku), strips markdown, converts to SSE.</li>
+				<li><strong>get_agent_config()</strong> — Builds Deepgram Voice Agent config: STT model, TTS model, custom LLM endpoint URL, system prompt.</li>
+				<li><strong>prewarm_openclaw_session()</strong> — Fires a throwaway request on call start to warm the prompt cache (~15k tokens). Subsequent requests are faster.</li>
+				<li><strong>strip_markdown()</strong> — Removes code blocks, bold/italic, headers, bullets, links, emojis. Voice output must be plain text.</li>
+			</ul>
+
+			<h3>make_call.py (outbound caller)</h3>
+			<p>Simple script that initiates calls via Twilio API with TwiML pointing to the DeepClaw WebSocket. Uses the Twilio Python SDK.</p>
+
+			<h3>test_call.py (TTS-only test)</h3>
+			<p>One-way test call using Twilio's Say TwiML verb with Polly.Joanna. No Deepgram involved. Good for verifying Twilio connectivity.</p>
+
+			<h2>Configuration</h2>
+
+			<h3>Environment (.env)</h3>
+			<table>
+				<tr><th>Variable</th><th>Purpose</th></tr>
+				<tr><td><code>DEEPGRAM_API_KEY</code></td><td>Deepgram Voice Agent API auth</td></tr>
+				<tr><td><code>TWILIO_ACCOUNT_SID</code></td><td>Twilio account</td></tr>
+				<tr><td><code>TWILIO_AUTH_TOKEN</code></td><td>Twilio auth</td></tr>
+				<tr><td><code>OPENCLAW_GATEWAY_URL</code></td><td>Local OpenClaw gateway (http://127.0.0.1:18789)</td></tr>
+				<tr><td><code>OPENCLAW_GATEWAY_TOKEN</code></td><td>Gateway bearer token</td></tr>
+				<tr><td><code>PUBLIC_URL</code></td><td>Tailscale Funnel URL</td></tr>
+				<tr><td><code>TWILIO_PHONE_NUMBER</code></td><td>Outbound caller ID (+18447552210)</td></tr>
+			</table>
+
+			<h3>OpenClaw Voice Agent</h3>
+			<ul>
+				<li><strong>Agent ID:</strong> voice</li>
+				<li><strong>Model:</strong> anthropic/claude-haiku-4-5-20251001</li>
+				<li><strong>Workspace:</strong> /Users/ariellesparlor/.openclaw/workspace-voice</li>
+				<li><strong>Purpose:</strong> Low-latency voice responses (~200ms vs 500ms+ for Opus)</li>
+			</ul>
+
+			<h3>Network Path</h3>
+<pre><code>Twilio cloud -- HTTPS -- Tailscale Funnel -- localhost:8000 (deepclaw)
+Deepgram cloud -- HTTPS -- Tailscale Funnel -- localhost:8000 (deepclaw /v1/chat/completions)
+deepclaw -- HTTP -- localhost:18789 (OpenClaw gateway)
+OpenClaw -- HTTPS -- Anthropic API (Claude)</code></pre>
+			<p>Tailscale Funnel exposes port 8000 to the public internet via https://arielles-macbook-air.tail408d59.ts.net.</p>
+
+			<h2>Dependencies</h2>
+<pre><code>fastapi&gt;=0.109.0    # Web framework
+uvicorn[standard]&gt;=0.27.0  # ASGI server
+websockets&gt;=12.0    # WebSocket client/server
+httpx&gt;=0.26.0       # Async HTTP client (LLM proxy)
+python-dotenv&gt;=1.0.0  # Env var management
+twilio              # Twilio SDK (call initiation)</code></pre>
+			<p>Python &gt;= 3.10 required. Running on 3.12.8 via pyenv.</p>
+
+			<h2>External Service Docs</h2>
+			<ul>
+				<li><strong>Deepgram Voice Agent API:</strong> <a href="https://developers.deepgram.com/docs/voice-agent">https://developers.deepgram.com/docs/voice-agent</a></li>
+				<li><strong>Deepgram Aura-2 TTS:</strong> <a href="https://developers.deepgram.com/docs/aura-2">https://developers.deepgram.com/docs/aura-2</a></li>
+				<li><strong>Deepgram Flux STT:</strong> <a href="https://developers.deepgram.com/docs/flux">https://developers.deepgram.com/docs/flux</a></li>
+				<li><strong>Twilio Media Streams:</strong> <a href="https://www.twilio.com/docs/voice/media-streams">https://www.twilio.com/docs/voice/media-streams</a></li>
+				<li><strong>Twilio TwiML Connect/Stream:</strong> <a href="https://www.twilio.com/docs/voice/twiml/connect">https://www.twilio.com/docs/voice/twiml/connect</a></li>
+				<li><strong>Tailscale Funnel:</strong> <a href="https://tailscale.com/kb/1223/funnel">https://tailscale.com/kb/1223/funnel</a></li>
+			</ul>
+
+			<h2>Known Issues</h2>
+
+			<h3>1. Response Delay (5-7 seconds) — P0</h3>
+			<p><strong>Symptom:</strong> After user speaks, there's a 5-7 second delay before hearing the AI response.</p>
+			<p><strong>Root Cause:</strong> Deepgram sends LLM request to DeepClaw proxy to OpenClaw gateway to Claude API and back. The round-trip through multiple hops plus Claude's response generation time creates the delay.</p>
+			<p><strong>Deepgram Warning:</strong> "We have now waited 5 seconds for think response." Code: SLOW_THINK_REQUEST</p>
+			<p><strong>Contributing Factors:</strong></p>
+			<ul>
+				<li>Non-streaming mode: body["stream"] = False means we wait for full response before sending to Deepgram</li>
+				<li>Network hops: Deepgram cloud to Tailscale Funnel to localhost to OpenClaw to Claude API and back</li>
+				<li>Claude Haiku response time: ~1-3s for 150 tokens</li>
+				<li>OpenClaw gateway overhead</li>
+			</ul>
+			<p><strong>Potential Fixes (see voice-patch-proposal):</strong></p>
+			<ol>
+				<li>Enable true streaming from OpenClaw to Deepgram</li>
+				<li>Use Deepgram's built-in LLM support instead of custom proxy</li>
+				<li>Reduce network hops (direct Deepgram to local, skip Funnel for LLM callback)</li>
+				<li>Pre-generate likely responses</li>
+				<li>Reduce system prompt size to speed up first-token time</li>
+			</ol>
+
+			<h3>2. No Identity on Voice Agent</h3>
+			<p><strong>Symptom:</strong> Voice agent responds as generic "helpful assistant" — doesn't know it's Nyx, doesn't know the caller is Arielle, no personality or context.</p>
+			<p><strong>Root Cause:</strong> System prompt in get_agent_config() is generic:</p>
+<pre><code>"You are a helpful voice assistant on a phone call. Keep responses to 1-2 short sentences."</code></pre>
+			<p><strong>Fix:</strong> Load voice-specific identity (condensed SOUL.md + USER.md) into the system prompt. Must be short enough to not add latency.</p>
+
+			<h3>3. Concurrent Call Collision</h3>
+			<p><strong>Symptom:</strong> If two calls happen simultaneously, session routing breaks.</p>
+			<p><strong>Root Cause:</strong> _active_sessions["_current"] is a global catch-all — second call overwrites first.</p>
+			<p><strong>Fix:</strong> Route by Deepgram request headers or use per-call proxy URLs.</p>
+
+			<h3>4. Tailscale Funnel Dependency</h3>
+			<p><strong>Symptom:</strong> Voice calls only work when Mac is on and Tailscale Funnel is active.</p>
+			<p><strong>Impact:</strong> No calls if Mac sleeps, loses internet, or Tailscale disconnects.</p>
+			<p><strong>Future Fix:</strong> Deploy deepclaw to a cloud server (VPS) for 24/7 availability.</p>
+
+			<h2>Test Results (Feb 17, 2026)</h2>
+			<table>
+				<tr><th>Test</th><th>Result</th></tr>
+				<tr><td>Twilio account active</td><td>Pass</td></tr>
+				<tr><td>Phone number +18447552210 active</td><td>Pass</td></tr>
+				<tr><td>Twilio balance</td><td>$19.65</td></tr>
+				<tr><td>Deepgram API</td><td>Pass ($200 credit)</td></tr>
+				<tr><td>One-way TTS call (test_call.py)</td><td>Pass — Clear audio</td></tr>
+				<tr><td>Outbound two-way call</td><td>Pass — Bidirectional audio confirmed</td></tr>
+				<tr><td>STT (user speech to text)</td><td>Pass — Accurate transcription</td></tr>
+				<tr><td>LLM response generation</td><td>Pass — Haiku responding in ~2-3s</td></tr>
+				<tr><td>TTS (text to user audio)</td><td>Pass — 126 audio chunks sent per response</td></tr>
+				<tr><td>Response heard by user</td><td>Pass — With 5-7s delay</td></tr>
+				<tr><td>Audio quality (user report)</td><td>"Great" on latest call</td></tr>
+				<tr><td>Tailscale Funnel</td><td>Pass — Active, stable</td></tr>
+			</table>
+
+			<h2>File Locations</h2>
+			<table>
+				<tr><th>File</th><th>Path</th></tr>
+				<tr><td>Main server</td><td>~/deepclaw/deepclaw/voice_agent_server.py</td></tr>
+				<tr><td>Environment</td><td>~/deepclaw/.env</td></tr>
+				<tr><td>Outbound caller</td><td>~/deepclaw/make_call.py</td></tr>
+				<tr><td>TTS test</td><td>~/deepclaw/test_call.py</td></tr>
+				<tr><td>Dependencies</td><td>~/deepclaw/pyproject.toml</td></tr>
+				<tr><td>OpenClaw config</td><td>~/.openclaw/openclaw.json</td></tr>
+				<tr><td>Voice agent workspace</td><td>~/.openclaw/workspace-voice/</td></tr>
+				<tr><td>Twilio token</td><td>~/workspace/secrets/twilio.auth_token</td></tr>
+				<tr><td>Deepgram token</td><td>~/workspace/secrets/deepgram.auth_token</td></tr>
+				<tr><td>Server logs</td><td>/tmp/deepclaw.log</td></tr>
+			</table>
+
+			<hr />
+			<p><em>Architecture doc by Nyx, Feb 17 2026. For Clem review.</em></p>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2em 1em;
+		color: rgb(30, 30, 30);
+		font-family: system-ui, sans-serif;
+		font-size: 16px;
+		line-height: 1.6;
+	}
+	h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+	h2 { font-size: 1.4em; margin-top: 2em; }
+	h3 { font-size: 1.15em; margin-top: 1.5em; }
+	table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }
+	th, td { border: 1px solid #ddd; padding: 0.5em 0.75em; text-align: left; }
+	th { background: #f5f5f5; }
+	ul, ol { padding-left: 1.5em; }
+	li { margin-bottom: 0.4em; }
+	pre {
+		background: #f4f4f4;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		padding: 1em;
+		overflow-x: auto;
+		font-size: 0.85em;
+		line-height: 1.5;
+	}
+	code {
+		font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+		font-size: 0.9em;
+	}
+	pre code {
+		font-size: inherit;
+	}
+	p code, li code, td code {
+		background: #f4f4f4;
+		padding: 0.15em 0.4em;
+		border-radius: 3px;
+	}
+</style>
