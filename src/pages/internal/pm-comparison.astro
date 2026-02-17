@@ -1,0 +1,229 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE } from '../../consts';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`PM Tool Comparison | ${SITE_TITLE}`} description="Internal document — PM tool evaluation." />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<main>
+			<h1>Project Management & Calendaring Tool Comparison</h1>
+			<p><strong>Purpose:</strong> Evaluate third-party tools to replace our markdown/CSV-based backlog, scheduling, and task management systems. We need something Nyx can interface with programmatically AND Arielle can use visually.</p>
+			<p><strong>Status:</strong> Draft for Arielle's editing pass → Clem review</p>
+			<hr />
+
+			<h2>Core Requirements</h2>
+
+			<h3>1. Backlog & Task Management</h3>
+			<ul>
+				<li><strong>Import:</strong> Ingest 366-item CSV backlog (3 pipelines: TECH/PERS/BIZ, 12 fields per item)</li>
+				<li><strong>Kanban views:</strong> Drag-and-drop boards per pipeline, filterable by priority/status/owner</li>
+				<li><strong>Priority levels:</strong> P0-P3 with visual differentiation</li>
+				<li><strong>Status workflow:</strong> not_started → in_progress → done (+ blocked, deferred)</li>
+				<li><strong>Ownership:</strong> Assign to Arielle, Nyx, Clem, Claire, or unassigned</li>
+				<li><strong>Effort sizing:</strong> S/M/L/XL tags</li>
+				<li><strong>Dependencies:</strong> Link tasks that block each other</li>
+				<li><strong>Custom fields:</strong> Source (telegram, session, etc.), created date, pipeline ID</li>
+				<li><strong>Bulk operations:</strong> Mass-update status, priority, owner across filtered views</li>
+			</ul>
+
+			<h3>2. Calendar & Scheduling</h3>
+			<ul>
+				<li><strong>Unified view:</strong> Ica custody schedule, appointments (dermatology, therapy, dentist), kink scenes, dates, business meetings, deadlines — all in one place</li>
+				<li><strong>Recurring events:</strong> Estradiol injection cycle (every 4.5 days), UV treatment (2x/week), therapy (weekly), Ica midweek (Tue-Wed), medication cycles (2wk on/1wk off)</li>
+				<li><strong>Reminders:</strong> Configurable per-event (push notification, Telegram/Signal message)</li>
+				<li><strong>Time blocking:</strong> Ability to block work windows, morning routine, drive time</li>
+				<li><strong>Integration with Apple Calendar:</strong> Sync or replace, not duplicate</li>
+				<li><strong>Multiple calendar layers:</strong> Personal health, SCAA business, Ica custody, social/kink</li>
+			</ul>
+
+			<h3>3. Programmatic API Access (Nyx)</h3>
+			<ul>
+				<li><strong>Read:</strong> Query tasks by status, priority, pipeline, owner, due date</li>
+				<li><strong>Write:</strong> Create tasks, update status, add comments, log activity</li>
+				<li><strong>Webhooks/events:</strong> Get notified when tasks change (optional but valuable)</li>
+				<li><strong>Calendar API:</strong> Read/write events, check availability, create reminders</li>
+				<li><strong>Authentication:</strong> API key or OAuth — must work from CLI/script context</li>
+				<li><strong>Rate limits:</strong> Reasonable for automated daily operations (100+ calls/day minimum)</li>
+				<li><strong>Bulk API:</strong> Import/export for backlog migration</li>
+			</ul>
+
+			<h3>4. Health & Wellness Tracking</h3>
+			<ul>
+				<li><strong>Medication cycle tracking:</strong> Visual timeline for on/off cycles, injection schedules</li>
+				<li><strong>Weight log:</strong> Simple date/value entries with trend visualization</li>
+				<li><strong>Appointment tracking:</strong> Link to calendar events, track upcoming/overdue</li>
+				<li><strong>Custom dashboards:</strong> Holistic view of health data over time</li>
+				<li><em>Note: This may be better served by a dedicated tool. Evaluate whether the PM tool can handle it or if it should stay in memory/health-log.md with a separate system later.</em></li>
+			</ul>
+
+			<h3>5. Visual Interface (Arielle)</h3>
+			<ul>
+				<li><strong>Mobile-friendly:</strong> Must work well on iPhone (and future iPad)</li>
+				<li><strong>Quick capture:</strong> Add tasks/notes fast from phone</li>
+				<li><strong>Clean UI:</strong> Not overwhelming. Arielle's working on limited spoons — cognitive load matters.</li>
+				<li><strong>Views:</strong> Kanban board, calendar, list/table, timeline (Gantt optional)</li>
+				<li><strong>Search:</strong> Full-text across tasks, notes, calendar</li>
+				<li><strong>Offline access:</strong> Nice to have for areas with poor signal</li>
+			</ul>
+
+			<h3>6. Collaboration</h3>
+			<ul>
+				<li><strong>Multiple "users":</strong> Arielle + Nyx (API) + Clem (review/architecture) + Claire (implementation)</li>
+				<li><strong>Comments/threads:</strong> Discussion on individual tasks</li>
+				<li><strong>Activity log:</strong> Who changed what, when</li>
+				<li><strong>Shared views:</strong> Same board visible to all, different filter presets per person</li>
+			</ul>
+
+			<h3>7. Security & Privacy</h3>
+			<ul>
+				<li><strong>Data residency:</strong> Where is data stored? US preferred.</li>
+				<li><strong>Encryption:</strong> At rest and in transit</li>
+				<li><strong>No training on data:</strong> Tool must not use our data for ML training</li>
+				<li><strong>Export:</strong> Full data export in standard format (CSV, JSON) — no vendor lock-in</li>
+				<li><strong>2FA:</strong> Required for Arielle's account</li>
+			</ul>
+
+			<h3>8. Cost</h3>
+			<ul>
+				<li><strong>Budget constraint:</strong> Money is tight. Free tier or &lt;$15/month strongly preferred.</li>
+				<li><strong>Growth path:</strong> Affordable as usage scales (more tasks, more integrations)</li>
+				<li><strong>No per-seat pricing traps:</strong> We have 1 human + 3 AI agents. Pricing should reflect actual usage, not headcount.</li>
+			</ul>
+
+			<hr />
+
+			<h2>Candidates</h2>
+
+			<h3>Notion</h3>
+			<table>
+				<tr><th>Requirement</th><th>Fit</th><th>Notes</th></tr>
+				<tr><td>Backlog/Kanban</td><td>✅ Excellent</td><td>Databases with kanban, table, calendar, timeline views. Custom properties.</td></tr>
+				<tr><td>Calendar</td><td>⚠️ Partial</td><td>Has calendar view for databases, but not a full calendar app. No recurring events natively.</td></tr>
+				<tr><td>API</td><td>✅ Excellent</td><td>Full REST API. Read/write databases, pages, blocks. Well-documented.</td></tr>
+				<tr><td>Health tracking</td><td>⚠️ Partial</td><td>Can build custom databases for it, but no native health features.</td></tr>
+				<tr><td>Mobile</td><td>✅ Good</td><td>iOS app works well. Quick capture via share sheet.</td></tr>
+				<tr><td>Collaboration</td><td>✅ Good</td><td>Comments, mentions, shared workspaces.</td></tr>
+				<tr><td>Security</td><td>✅ Good</td><td>SOC 2, encryption at rest/transit, GDPR compliant.</td></tr>
+				<tr><td>Cost</td><td>✅ Free tier</td><td>Free for personal use. Plus plan $10/mo for more blocks/uploads.</td></tr>
+				<tr><td>CSV import</td><td>✅ Yes</td><td>Direct CSV → database import.</td></tr>
+			</table>
+			<p><strong>Strengths:</strong> Most flexible. One tool for everything. Great API. Free tier.</p>
+			<p><strong>Weaknesses:</strong> Calendar is a database view, not a real calendar. Recurring events require workarounds. Can get messy without discipline.</p>
+
+			<h3>Linear</h3>
+			<table>
+				<tr><th>Requirement</th><th>Fit</th><th>Notes</th></tr>
+				<tr><td>Backlog/Kanban</td><td>✅ Excellent</td><td>Purpose-built for this. Cycles, sprints, triage.</td></tr>
+				<tr><td>Calendar</td><td>❌ No</td><td>No calendar functionality.</td></tr>
+				<tr><td>API</td><td>✅ Excellent</td><td>GraphQL API. Very clean. Webhooks built in.</td></tr>
+				<tr><td>Health tracking</td><td>❌ No</td><td>Engineering tool only.</td></tr>
+				<tr><td>Mobile</td><td>✅ Good</td><td>Clean iOS app.</td></tr>
+				<tr><td>Collaboration</td><td>✅ Excellent</td><td>Built for teams.</td></tr>
+				<tr><td>Security</td><td>✅ Good</td><td>SOC 2.</td></tr>
+				<tr><td>Cost</td><td>⚠️ $8/seat/mo</td><td>Per-seat pricing. 4 "seats" = $32/mo.</td></tr>
+				<tr><td>CSV import</td><td>✅ Yes</td><td>CSV + integrations.</td></tr>
+			</table>
+			<p><strong>Strengths:</strong> Best-in-class for engineering PM. Clean, fast, opinionated.</p>
+			<p><strong>Weaknesses:</strong> No calendar. No personal/health tracking. Per-seat pricing. Overkill for personal tasks.</p>
+
+			<h3>Motion</h3>
+			<table>
+				<tr><th>Requirement</th><th>Fit</th><th>Notes</th></tr>
+				<tr><td>Backlog/Kanban</td><td>⚠️ Basic</td><td>Task lists with priorities, not as flexible.</td></tr>
+				<tr><td>Calendar</td><td>✅ Excellent</td><td>AI auto-scheduling is the core product.</td></tr>
+				<tr><td>API</td><td>❌ Limited</td><td>No public API. Zapier only.</td></tr>
+				<tr><td>Health tracking</td><td>❌ No</td><td>Not designed for this.</td></tr>
+				<tr><td>Mobile</td><td>✅ Good</td><td>iOS app.</td></tr>
+				<tr><td>Collaboration</td><td>⚠️ Basic</td><td>Team features exist but not the focus.</td></tr>
+				<tr><td>Security</td><td>⚠️ Unknown</td><td>Less documentation on security posture.</td></tr>
+				<tr><td>Cost</td><td>❌ $19/mo</td><td>Expensive for our budget.</td></tr>
+				<tr><td>CSV import</td><td>❌ No</td><td>No bulk import.</td></tr>
+			</table>
+			<p><strong>Strengths:</strong> AI auto-scheduling genuinely useful for limited spoons.</p>
+			<p><strong>Weaknesses:</strong> No API (dealbreaker for Nyx), expensive, limited task management.</p>
+
+			<h3>Airtable</h3>
+			<table>
+				<tr><th>Requirement</th><th>Fit</th><th>Notes</th></tr>
+				<tr><td>Backlog/Kanban</td><td>✅ Excellent</td><td>Kanban, grid, calendar, gallery, Gantt views.</td></tr>
+				<tr><td>Calendar</td><td>⚠️ Partial</td><td>Calendar view on date fields. Not standalone.</td></tr>
+				<tr><td>API</td><td>✅ Excellent</td><td>Full REST API. CRUD, webhooks, automations.</td></tr>
+				<tr><td>Health tracking</td><td>⚠️ Partial</td><td>Can build custom tables. Better than Notion for structured data.</td></tr>
+				<tr><td>Mobile</td><td>✅ Good</td><td>iOS app. Quick add.</td></tr>
+				<tr><td>Collaboration</td><td>✅ Good</td><td>Comments, shared bases, activity log.</td></tr>
+				<tr><td>Security</td><td>✅ Good</td><td>SOC 2, encryption.</td></tr>
+				<tr><td>Cost</td><td>⚠️ Limited free</td><td>Free: 1,000 records/base. Plus $20/seat/mo.</td></tr>
+				<tr><td>CSV import</td><td>✅ Excellent</td><td>CSV was designed for Airtable import.</td></tr>
+			</table>
+			<p><strong>Strengths:</strong> Our CSV was literally designed for this. Excellent structured data. Great API.</p>
+			<p><strong>Weaknesses:</strong> 1,000 record free limit (366 items = 37% used). Plus plan expensive. Per-seat pricing.</p>
+
+			<h3>Todoist + Google Calendar</h3>
+			<table>
+				<tr><th>Requirement</th><th>Fit</th><th>Notes</th></tr>
+				<tr><td>Backlog/Kanban</td><td>⚠️ Basic</td><td>Todoist has boards, labels, priorities.</td></tr>
+				<tr><td>Calendar</td><td>✅ Good</td><td>GCal handles recurring events, reminders, layers well.</td></tr>
+				<tr><td>API</td><td>✅ Good</td><td>Both have well-documented REST APIs.</td></tr>
+				<tr><td>Health tracking</td><td>❌ No</td><td>Would need a third tool.</td></tr>
+				<tr><td>Mobile</td><td>✅ Excellent</td><td>Both have great iOS apps.</td></tr>
+				<tr><td>Collaboration</td><td>⚠️ Basic</td><td>Todoist shared projects. GCal shared calendars.</td></tr>
+				<tr><td>Security</td><td>⚠️ Mixed</td><td>Google has your data.</td></tr>
+				<tr><td>Cost</td><td>✅ Free/$4</td><td>Todoist free or $4/mo. GCal free.</td></tr>
+				<tr><td>CSV import</td><td>⚠️ Limited</td><td>Template-based, less flexible.</td></tr>
+			</table>
+			<p><strong>Strengths:</strong> Cheapest option. Both APIs work. Low friction.</p>
+			<p><strong>Weaknesses:</strong> Two tools. Basic task management. No health tracking. Google has your data.</p>
+
+			<hr />
+
+			<h2>Recommendation Matrix</h2>
+			<table>
+				<tr><th>Requirement</th><th>Notion</th><th>Linear</th><th>Motion</th><th>Airtable</th><th>Todoist+GCal</th></tr>
+				<tr><td>Backlog/Kanban</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>⚠️</td></tr>
+				<tr><td>Calendar</td><td>⚠️</td><td>❌</td><td>✅</td><td>⚠️</td><td>✅</td></tr>
+				<tr><td>API (Nyx)</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td></tr>
+				<tr><td>Health tracking</td><td>⚠️</td><td>❌</td><td>❌</td><td>⚠️</td><td>❌</td></tr>
+				<tr><td>Mobile UX</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+				<tr><td>Cost</td><td>✅ Free</td><td>⚠️ $32</td><td>❌ $19</td><td>⚠️ $20+</td><td>✅ Free-$4</td></tr>
+				<tr><td>CSV import</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>⚠️</td></tr>
+				<tr><td>Single tool</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td></tr>
+			</table>
+
+			<hr />
+
+			<h2>Initial Take (Nyx)</h2>
+			<p><strong>Notion</strong> is the most versatile single-tool option. Free tier covers us, API is excellent, CSV imports directly, and it flexes to handle backlog + personal + business + health databases. Calendar is its weakest point — it's a database view, not a real calendar — but Apple Calendar can remain the calendar of record with Notion handling everything else.</p>
+			<p><strong>Airtable</strong> is the strongest for structured data (our CSV was literally designed for it) but the 1,000-record free limit and per-seat pricing make it expensive to grow.</p>
+			<p><strong>Motion</strong> is eliminated — no API means Nyx can't touch it.</p>
+			<p><strong>Linear</strong> is eliminated for this purpose — no calendar, no personal/health tracking, per-seat pricing.</p>
+			<p>Pending: Arielle's editing pass on requirements, then Clem review on architecture and security implications.</p>
+
+			<hr />
+			<p><em>Draft by Nyx, Feb 16 2026. For Arielle's review.</em></p>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2em 1em;
+		color: rgb(30, 30, 30);
+		font-family: system-ui, sans-serif;
+		font-size: 16px;
+		line-height: 1.6;
+	}
+	h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+	h2 { font-size: 1.4em; margin-top: 2em; }
+	h3 { font-size: 1.15em; margin-top: 1.5em; }
+	table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }
+	th, td { border: 1px solid #ddd; padding: 0.5em 0.75em; text-align: left; }
+	th { background: #f5f5f5; }
+	ul { padding-left: 1.5em; }
+	li { margin-bottom: 0.4em; }
+</style>
