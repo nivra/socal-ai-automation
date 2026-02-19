@@ -1,0 +1,863 @@
+Task ID,Category,Priority,Status,Project,Autonomy,Owner,Title,Notes
+TECH-142,TECH,P2 - Medium,Backlog,Environment & Config,Possibly Safe,,Fix plist flagged as non-standard,"Why: Gateway log shows 'Service config looks out of date'; custom bash wrapper plist is non-standard; openclaw doctor --repair would fix but loses account-switching
+Next step: Investigate how to make plist standard while preserving gateway-env.sh sourcing
+Dependencies: TECH-025
+Effort: M
+Owner: nyx"
+TECH-103,TECH,P3 - Low,Backlog,Build & Deploy,Possibly Safe,,Set up OpenClaw installation for Mom,"Why: Future simplified/locked-down installation for elderly family member support
+Next step: Create template from Nyx installation once stable
+Dependencies: TECH-004
+Effort: XL
+Owner: arielle"
+TECH-091,TECH,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Fix iMessage rpc not ready error on gateway startup,"Why: iMessage channel configured but imsg binary not found - causes repeated errors in logs
+Next step: Install or configure imsg binary for iMessage integration
+Effort: S
+Owner: clem"
+BIZ-025,BIZ,P1 - High,Backlog,Web & Hosting,Possibly Safe,,Resolve Netlify build credits - used up for the month,"Why: Site won't auto-deploy until credits reset; blocks website updates
+Next step: Check Netlify billing/credit reset date; consider upgrading or alternative
+Effort: S
+Owner: arielle"
+BIZ-023,BIZ,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Resolve GitHub email issue - arielle@socalaiautomation.com shows 'already in use',"Why: Work email can't be added to GitHub; may need support ticket
+Next step: Contact GitHub support about the duplicate email issue
+Effort: S
+Owner: arielle"
+TECH-069,TECH,P1 - High,In Progress,Build & Deploy,Possibly Safe,,Software update automation,"Why: Update all systems: OpenClaw skills/patches/deepclaw/apps and eventually macOS Tahoe
+Next step: Update OpenClaw to latest version; research macOS Tahoe changes
+Effort: L
+Owner: nyx"
+TECH-109,TECH,P2 - Medium,Backlog,AI & Models,Possibly Safe,,Cancel OpenAI subscription after evaluation,"Why: Want to cancel ChatGPT Plus/Codex sub after evaluating alternatives
+Next step: Evaluate OpenAI performance; cancel subscription if not needed
+Dependencies: TECH-057
+Effort: XS
+Owner: arielle"
+TECH-047,TECH,P3 - Low,In Progress,Session Management,Possibly Safe,,Implement Nyx heartbeat feature,"Why: Give Nyx awareness of uptime/downtime cycles; proactive monitoring; autonomous background work
+Next step: Configure heartbeat with task checklist; consider model cost (Haiku vs Opus); decouple from identity load
+Effort: M
+Owner: nyx"
+PERS-015,PERS,P3 - Low,Backlog,Health - Medical & HRT,Possibly Safe,,Shop around for health insurance to replace Molina,"Why: Unhappy with Molina coverage; retention team calling
+Next step: Research alternatives during open enrollment or qualifying life event
+Effort: M
+Owner: arielle"
+BIZ-021,BIZ,P3 - Low,Backlog,Business Ops,Possibly Safe,,Process Pride business cards from last summer,"Why: Unprocessed leads from Pride 2025; some may still be viable with website as intro
+Next step: Scan and process cards; identify still-viable contacts
+Effort: M
+Owner: arielle"
+TECH-093,TECH,P1 - High,Backlog,Voice Pipeline,Possibly Safe,,Fix voice calling identity (DeepClaw connects to generic Claude not Nyx),"Why: Phone calls get generic Claude Code instead of Nyx with full context
+Next step: Configure DeepClaw to pass Nyx project context/system prompt when routing to OpenClaw gateway
+Dependencies: TECH-092
+Effort: M
+Owner: clem"
+TECH-028,TECH,P3 - Low,In Progress,Environment & Config,Possibly Safe,,Configure MacBook Air sleep settings to keep gateway running,"Why: Gateway goes down when computer sleeps; need reliable always-on for Nyx access from phone
+Next step: Verify and maintain 'do not sleep' settings on MacBook Air
+Effort: XS
+Owner: arielle"
+TECH-081,TECH,P2 - Medium,Backlog,CLI & Interface,Possibly Safe,,Implement nyx-actions-log for claude-cli provider,"Why: Plugin can't intercept tool calls when using claude-cli because it's a passthrough
+Next step: Find correct agent-events path in v2026.2.9 or use Claude Code's own hooks
+Effort: L
+Owner: nyx"
+TECH-067,TECH,P1 - High,Backlog,Session Management,Possibly Safe,,Build heartbeat gap detection,"Why: If heartbeats stop for >10 min that should be an alert
+Next step: Add heartbeat gap detection to auto-recovery system
+Dependencies: TECH-066
+Effort: M
+Owner: nyx"
+TECH-095,TECH,P1 - High,Backlog,Communication Channels,Possibly Safe,,Enable SMS/iMessage reading and sending,"Why: Already supported in OpenClaw but not yet configured/tested for Nyx
+Next step: Test iMessage channel configuration and fix imsg rpc not ready error
+Effort: S
+Owner: clem"
+PERS-003,PERS,P1 - High,In Progress,Business Ops,Possibly Safe,,Follow up with Legal Aid Society of San Diego,"Why: Case assigned Feb 5; no update since; submitted web form and full intake application
+Next step: Follow up on case status
+Effort: XS
+Owner: arielle"
+BIZ-016,BIZ,P1 - High,Backlog,Communication Channels,Possibly Safe,,Email Club X board with trans community outreach ideas,"Why: Create greater trans <> Club X connection within a week
+Next step: Draft email with ideas: queer workshops; QT-coded branding; QT-Kink 101 workshops; review draft at memory/club-x-email-draft.md
+Effort: M
+Owner: arielle"
+TECH-080,TECH,P2 - Medium,Backlog,Sub-Agent System,Safe,,Investigate why Claire/Clem agents not loading in gateway,"Why: Agents exist on disk but openclaw agents list doesn't show them as loaded
+Next step: Check config validation errors; verify agent model backend requirements
+Effort: M
+Owner: nyx"
+TECH-005,TECH,P2 - Medium,Backlog,Build & Deploy,Safe,,Check macOS version compatibility on 2015 MacBook Pro,"Why: Node 22 LTS requires macOS 11 Big Sur or later; 2015 MBP may be stuck on older macOS
+Next step: Check max supported macOS for 2015 MacBook Pro model
+Effort: XS
+Owner: arielle"
+PERS-050,PERS,P2 - Medium,Backlog,Shopping & Errands,Safe,,Tidy computer desk area and prep for two computers,"Why: Need workspace ready for both MacBook Air and 2015 MBP
+Next step: Clear desk area before TB2 cable arrives
+Effort: S
+Owner: arielle"
+TECH-084,TECH,P1 - High,Backlog,Voice Pipeline,Possibly Safe,,Commit OpenClaw voice-call extension deletions,"Why: Local deletion of extensions/voice-call/ from DeepClaw migration needs proper documentation and commit
+Next step: Document intentional deletion; commit to appropriate branch
+Effort: S
+Owner: nyx"
+TECH-113,TECH,P0 - Critical,Backlog,Memory & Identity,Safe,,Debug why USER.md doesn't auto-load at gateway startup,"Why: USER.md/MEMORY.md not loading affects session quality and personality coherence; wrong path in system message
+Next step: Correct auto-load path in system message or move files to expected location; verify with gateway restart
+Effort: M
+Owner: nyx"
+TECH-140,TECH,P1 - High,In Progress,Sub-Agent System,Possibly Safe,,Set up Nyx-Cowork async communication via shared directory,"Why: Cowork (Claude Desktop beta) has file system RW access; can collaborate with Nyx via shared directory without Arielle as relay
+Next step: Created ~/.openclaw/workspace/cowork-nyx-clem/ directory; define file format and update frequency; establish task assignment protocol
+Effort: M
+Owner: nyx"
+TECH-132,TECH,P1 - High,Backlog,Environment & Config,Possibly Safe,,Fix launchctl usage pattern,"Why: Using bootout (permanent unload) instead of stop/start; should use launchctl stop gui/$UID/ai.openclaw.gateway; see Issue #3780
+Next step: Change all gateway stop commands to use launchctl stop instead of bootout; update scripts and documentation
+Effort: S
+Owner: nyx"
+PERS-020,PERS,P2 - Medium,In Progress,Finance & Benefits,Unsafe,,Follow up on EBT/CalFresh application,"Why: Qualified for expedited processing; interview completed; waiting for card
+Next step: Check BenefitsCal for status update; card should arrive soon
+Effort: XS
+Owner: arielle"
+TECH-136,TECH,P1 - High,Backlog,Session Management,Possibly Safe,,Fix session refresh script - replace buggy nyx-session-refresh.sh,"Why: Buggy script caused issues during recovery; Clem has fixed version
+Next step: Write patch proposal and get Clem review
+Effort: S
+Owner: clem"
+PERS-002,PERS,P1 - High,Backlog,Housing & Legal,Safe,,Check if rent increases since 2020 comply with AB 1482,"Why: $800 increase since 2020 may exceed CA Tenant Protection Act caps (5%+CPI or 10%); use tenantprotections.org
+Next step: Check property coverage and mention rent increase history to Legal Aid
+Dependencies: PERS-001
+Effort: S
+Owner: arielle"
+PERS-012,PERS,P1 - High,Backlog,Health - Medical & HRT,Possibly Safe,,Schedule neurology clinic appointment,"Why: Trigeminal neuralgia actively affecting daily life; dentin trigger on right bicuspid + jaw tension + bump below earlobe needing imaging; need Botox and medication options
+Next step: Call clinic and schedule appointment
+Effort: S
+Owner: arielle"
+TECH-147,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Cowork context problem - needs architectural briefing,"Why: Cowork failed during recovery because it lacked system context unlike Clem
+Next step: Create stripped-down CLAUDE.md or AGENTS.md briefing for Cowork
+Dependencies: TECH-146
+Effort: S
+Owner: nyx"
+PERS-061,PERS,P1 - High,Backlog,Health - Medical & HRT,Possibly Safe,,Estradiol injection - next due Tuesday Feb 18,"Why: Last shot Thursday night Feb 13; 4.5-day cycle
+Next step: Do injection Tuesday Feb 18 morning
+Effort: XS
+Owner: arielle"
+PERS-053,PERS,P1 - High,Backlog,Health - Habits & Wellness,Safe,,Dermatology/UV treatment schedule tracking,"Why: Arielle has UV treatment 2x/week in La Jolla; drives weekly schedule significantly
+Next step: Extract full UV treatment schedule from Telegram archive; integrate into calendar awareness
+Dependencies: TECH-128
+Effort: S
+Owner: nyx"
+TECH-128,TECH,P1 - High,In Progress,Voice Pipeline,Possibly Safe,,Systematically read and ingest full Telegram archive,"Why: Need to extract full February schedule + health patterns + daily context + relationship patterns + backlog tasks from ~6.2MB/3182 messages
+Next step: Read Telegram JSON archive systematically; extract all insights; build holistic health picture; identify missing context about daily life
+Effort: L
+Owner: nyx"
+PERS-033,PERS,P3 - Low,Backlog,Health - Medical & HRT,Unsafe,,Buy Apple Watch for health tracking,"Why: Would provide automated health data (sleep, heart rate, activity) for Nyx to analyze
+Next step: Purchase when budget allows
+Effort: M
+Owner: arielle"
+TECH-065,TECH,P1 - High,Backlog,Session Management,Safe,,Report stale session validation bug upstream to OpenClaw,"Why: Gateway doesn't verify session files exist before routing; causes silent crash
+Next step: File bug report with OpenClaw about sessions.json validation
+Effort: S
+Owner: nyx"
+BIZ-010,BIZ,P1 - High,Backlog,Sales & Outreach,Safe,,Hire Digital Creative Consultant - write real job post,"Why: Placeholder joke on team page needs real hiring post for community networks
+Next step: Draft values-aligned job description and share on IG/Discord/community channels
+Effort: S
+Owner: arielle"
+PERS-036,PERS,P1 - High,Backlog,Web & Hosting,Safe,,Set up Vheda Health care package (BP + PulseOx monitoring),"Why: Health monitoring equipment sent - needs setup per Vheda Health call
+Next step: Set up devices and connect to monitoring system by Friday
+Effort: S
+Owner: arielle"
+TECH-157,TECH,P1 - High,In Progress,Memory & Identity,Possibly Safe,,Complete Nyx restore action plan steps G through P,"Why: Steps G-F done; G-P remain including technical extraction, post-mortem, alt branch review, backlog
+Next step: Continue working through action plan from Clem's NTMA
+Effort: L
+Owner: nyx"
+TECH-029,TECH,P3 - Low,Backlog,Environment & Config,Unsafe,,Consider secondary Claude Pro plan for Nyx,"Why: Hitting usage limits sharing one Pro plan between Nyx/Claire/Clem; evaluate budget for Max plan once income starts
+Next step: Evaluate budget for additional Pro subscription once income starts
+Effort: XS
+Owner: arielle"
+TECH-100,TECH,P2 - Medium,Backlog,CLI & Interface,Possibly Safe,,Enable Nyx terminal/bash access for diagnostics,"Why: Currently Arielle must relay all diagnostic commands between agents - major bottleneck
+Next step: Configure safe read-only bash access (ls/cat/grep/find) restricted to specific directories
+Effort: M
+Owner: clem"
+TECH-099,TECH,P3 - Low,Backlog,Build & Deploy,Safe,,Evaluate macOS Tahoe upgrade for MacBook Air,"Why: Tahoe (macOS 26) has improved Siri/Apple Intelligence but breaks numbering system
+Next step: Research Tahoe benefits and compatibility impacts - defer until after Feb deadline
+Effort: S
+Owner: arielle"
+BIZ-008,BIZ,P0 - Critical,Backlog,Sales & Outreach,Possibly Safe,,Text Sarah at Black Dagger Hair Monday morning to set up coffee,"Why: First warm lead; she gave personal cell and asked to be texted
+Next step: Send draft text Monday AM: casual coffee invite
+Effort: XS
+Owner: arielle"
+PERS-004,PERS,P1 - High,In Progress,Housing & Legal,Possibly Safe,,Follow up with San Diego Tenants United,"Why: Forwarded landlord communications; emailed about dispute; awaiting confirmation
+Next step: Follow up if no response to 2/6 morning email
+Effort: XS
+Owner: arielle"
+PERS-059,PERS,P1 - High,Backlog,Communication Channels,Safe,,Club X board email - draft exists needs review and send,"Why: Soft deadline ~Feb 18
+Next step: Review draft email and send by Feb 18
+Effort: S
+Owner: arielle"
+TECH-152,TECH,P2 - Medium,Backlog,Health - Medical & HRT,Safe,,Fix injection reminder cron - not working properly,"Why: Crontab is empty; estradiol reminder cron not functional
+Next step: Investigate and reinstall cron entries for medication reminders
+Effort: S
+Owner: nyx"
+TECH-021,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Possibly Safe,,Set up Nyx on multiple communication platforms,"Why: Currently only on Telegram; need additional channels for reliability and accessibility
+Next step: Research and implement additional platform integrations beyond Telegram
+Dependencies: TECH-020
+Effort: L
+Owner: nyx"
+BIZ-015,BIZ,P1 - High,Backlog,Sales & Outreach,Possibly Safe,,Build sales pipeline for SoCal AI Automation,"Why: Have LLC/EIN/email/faire contacts but no systematic outreach process
+Next step: Map out faire contacts and create outreach strategy
+Dependencies: BIZ-002,BIZ-003
+Effort: M
+Owner: arielle"
+BIZ-020,BIZ,P2 - Medium,Backlog,Sales & Outreach,Possibly Safe,,Re-engage Oceanside LGBTQ+ Center lead,"Why: Met contact in person at HIV testing event; emailed but never sat down; lukewarm
+Next step: Send re-engagement email with new website link
+Dependencies: BIZ-009
+Effort: S
+Owner: arielle"
+PERS-034,PERS,P2 - Medium,Backlog,Content & Docs,Safe,,Write letter to Miki integrating therapist feedback,"Why: Co-parenting communication - feedback from both co-parenting therapist and Chelsie needs integration
+Next step: Re-read feedback from both therapists and draft letter
+Effort: M
+Owner: arielle"
+PERS-009,PERS,P1 - High,Backlog,Housing & Legal,Safe,,Document apartment heater pilot light issue,"Why: Gas heater pilot light goes out on low setting within 24hrs; stays lit at 1.5 setting
+Next step: Log as maintenance issue; use as evidence for tenant situation if needed
+Effort: XS
+Owner: arielle"
+BIZ-019,BIZ,P2 - Medium,Backlog,Business Ops,Possibly Safe,,Re-engage Feeble Automation Academy (Spencer Brickman & Ben Frost),"Why: Mentorship program; haven't logged in; they'd want to hear about progress
+Next step: Sign back in to their program and update them
+Effort: S
+Owner: arielle"
+PERS-005,PERS,P1 - High,Backlog,Communication Channels,Unsafe,,Send documented email to landlord re: refused rent payment,"Why: Create paper trail showing willingness to pay rent that was refused on 2/3
+Next step: Draft email after consulting with CRLA attorney
+Dependencies: PERS-001
+Effort: S
+Owner: arielle"
+PERS-035,PERS,P2 - Medium,Backlog,Shopping & Errands,Unsafe,,Order tea mix ingredients from sonoherbs.com,"Why: Calming tea blend (chamomile/mint/rose hips/lavender/passionflower) for sleep/anxiety support
+Next step: Place order when funds available
+Effort: XS
+Owner: arielle"
+PERS-082,PERS,P4 - Backlog,Backlog,Personal & Life,Unsafe,Arielle,Art project about transition,Fun side project. When time allows.
+TECH-048,TECH,P3 - Low,Backlog,Memory & Identity,Possibly Safe,,Implement Nyx dreaming feature,"Why: Give Nyx something to process during idle/sleep periods
+Next step: Scope what dreaming means for an AI agent
+Effort: M
+Owner: nyx"
+TECH-097,TECH,P3 - Low,Backlog,Communication Channels,Possibly Safe,,Set up Discord channel integration,"Why: Talk to Arielle via Discord and interact with communities
+Next step: Configure Discord channel in openclaw.json with bot token
+Effort: M
+Owner: clem"
+TECH-046,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Implement agent-to-agent direct communication (Nyx/Claire/Clem),"Why: Arielle is currently the message bus between agents; bottleneck; sessions_send or extraPaths needed
+Next step: Configure sessions_send for direct messaging; or use extraPaths for shared memory directories
+Dependencies: TECH-044
+Effort: L
+Owner: nyx"
+PERS-052,PERS,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Build holistic health picture from Telegram archive,"Why: Need to understand Arielle's spoon management patterns — sleep/diet/exercise/autoimmune tracking over time
+Next step: Extract health patterns from Telegram archive: psoriasis UV treatment 2x/week + neuralgia flares + sleep patterns + spoon allocation
+Dependencies: TECH-128
+Effort: L
+Owner: nyx"
+TECH-141,TECH,P1 - High,In Progress,Testing & QA,Safe,,Complete postmortem with accurate timelines,"Why: Need single authoritative postmortem merging Clem's technical details with Nyx's architectural vision using Telegram export as timestamp source of truth
+Next step: Merge Clem's postmortem (technically accurate) with Nyx's (architectural vision); correct technical errors; use Telegram timestamps
+Effort: M
+Owner: nyx"
+TECH-049,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Update OpenClaw/Telegram/Claire/Clem to latest versions,"Why: New versions rolled out; only been a week since last update
+Next step: Check and apply updates when convenient
+Effort: S
+Owner: arielle"
+TECH-070,TECH,P1 - High,Backlog,Environment & Config,Safe,,Consolidate and audit logging protocol,"Why: 5 log files with no archive strategy; unclear SOP for gateway logs; need since-last-stable snapshots
+Next step: Audit all 5 logs; define archive strategy; implement log rotation
+Effort: M
+Owner: nyx"
+TECH-123,TECH,P1 - High,Backlog,Content & Docs,Safe,,Write test harness script for dev/test gateways,"Why: Need automated testing capability for patches before promoting to prod
+Next step: Write script that starts dev gateway with log redirect; sends curl test requests; validates responses; reports results
+Dependencies: TECH-122
+Effort: M
+Owner: nyx"
+TECH-104,TECH,P3 - Low,Backlog,Build & Deploy,Possibly Safe,,Set up client OpenClaw installation templates,"Why: Templated deployments for AI workflow consulting business
+Next step: Create documentation and handoff procedures from Nyx installation
+Dependencies: TECH-004,BIZ-041
+Effort: XL
+Owner: arielle"
+PERS-045,PERS,P3 - Low,Backlog,Business Ops,Possibly Safe,,Clear breakfast nook as business command center,"Why: Phase 1 life design - nook overflowing with junk needs to become business HQ
+Next step: Get three boxes (Keep Here/Belongs Elsewhere/Decide Later) and start sorting
+Effort: M
+Owner: arielle"
+BIZ-001,BIZ,P0 - Critical,In Progress,Sales & Outreach,Possibly Safe,,Land first paying client by end of February,"Why: Financial survival - need $2k revenue; rent crisis; dad's support reduction; Sarah at Black Dagger Hair is warmest lead
+Next step: Follow up with Sarah; generate more warm leads through community socializing
+Dependencies: BIZ-002
+Effort: XL
+Owner: arielle"
+BIZ-007,BIZ,P2 - Medium,Backlog,Architecture & Planning,Safe,,Explore OpenClaw assistant as product offering,"Why: Could offer AI assistant setup as one of the service packages
+Next step: Document OpenClaw setup process as repeatable service offering
+Dependencies: TECH-004;BIZ-004
+Effort: L
+Owner: arielle"
+BIZ-005,BIZ,P1 - High,Backlog,Sales & Outreach,Possibly Safe,,Build outreach list from faire/event contacts,"Why: Have contact info from various faires and events; not warm leads but not strangers
+Next step: Compile contact list and segment by likely fit
+Effort: S
+Owner: arielle"
+PERS-051,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Safe,,Set up daily hydration reminders,"Why: Running dehydrated past few days; can't hydrate at night due to bathroom waking
+Next step: Add morning/afternoon/evening hydration check-ins to Nyx routine
+Effort: XS
+Owner: nyx"
+TECH-075,TECH,P1 - High,Backlog,MCP & Tool Integration,Safe,,Evaluate and install ClawRouter,"Why: Auto-route heartbeats to cheap models like DeepSeek instead of burning Claude Pro quota
+Next step: Fund Base wallet with $5 USDC; install ClawRouter plugin; test routing
+Effort: M
+Owner: arielle"
+PERS-080,PERS,P1 - High,To Do,Health - Medical & HRT,Possibly Safe,Arielle,Schedule neurology clinic appointment,For trigeminal neuralgia ongoing management
+PERS-030,PERS,P3 - Low,Backlog,Memory & Identity,Possibly Safe,,Give Nyx access to Mindsera journal and BetterHelp diary,"Why: Would help Nyx learn more context about Arielle; requires privacy consideration
+Next step: Evaluate privacy/security implications; discuss with Chelsie; decide on access level
+Effort: S
+Owner: arielle"
+TECH-102,TECH,P2 - Medium,Backlog,Testing & QA,Safe,,Security audit of OpenClaw installation,"Why: Comprehensive security checklist needs review - many items unchecked
+Next step: Work through security checklist systematically - file permissions/secrets management/network security
+Effort: L
+Owner: clem"
+TECH-040,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Possibly Safe,,Fix MCP calendar access (missing most calendars),"Why: MCP only sees subset of 12 active calendars; major calendars missing; defaults to wrong calendar name
+Next step: Audit which calendars are visible via MCP vs Apple Calendar and fix configuration
+Effort: M
+Owner: clem"
+TECH-156,TECH,P2 - Medium,Backlog,Crash Prevention & Recovery,Possibly Safe,,Apply crash prevention patch (5 fixes),"Why: Gateway crashes from Task tool spawning missing claude CLI binary
+Next step: Review ~/.openclaw/patches/crash-prevention/CHANGELOG.md and apply
+Effort: M
+Owner: clem"
+TECH-026,TECH,P3 - Low,Backlog,Sub-Agent System,Possibly Safe,,Mirror Clem's /mnt/project/ docs to real filesystem,"Why: Strategic docs trapped in Claude Desktop Project environment and not accessible from Mac filesystem
+Next step: Copy /mnt/project/core and /operations and /knowledge to ~/code/openclaw/installations/nyx/docs/
+Effort: S
+Owner: arielle"
+TECH-019,TECH,P1 - High,Backlog,Environment & Config,Safe,,Create dedicated Nyx user account on 2015 MBP,"Why: Security best practice - separate user account for Nyx on dedicated hardware
+Next step: After Monterey install create standard user account named Nyx
+Dependencies: TECH-015
+Effort: S
+Owner: arielle"
+BIZ-006,BIZ,P2 - Medium,Backlog,Social & Events,Safe,,Develop personal brand That AI Doll,"Why: Fun personal brand for social media presence alongside SoCal AI Automation business brand
+Next step: Set up social media accounts under That AI Doll brand
+Dependencies: BIZ-003
+Effort: M
+Owner: arielle"
+PERS-022,PERS,P2 - Medium,Backlog,Social & Events,Unsafe,,Confirm Donna for Ica Feb 21 - Club X with Rachel,"Why: Need childcare confirmed for event
+Next step: Text/call Donna to confirm availability Feb 21
+Effort: XS
+Owner: arielle"
+PERS-073,PERS,P1 - High,Backlog,Web & Hosting,Possibly Safe,,Activate Squarespace account for domain management,"Why: Account not yet activated; needed for DNS management
+Next step: Follow activation link in email using arielle@socalaiautomation.com
+Effort: XS
+Owner: arielle"
+TECH-050,TECH,P3 - Low,Backlog,Voice Pipeline,Safe,,Explore Alexa integration for voice access to Nyx,"Why: Have 2 Echo Minis and 1 full-size Alexa; would enable hands-free voice interaction
+Next step: Research Alexa skill development or bridge options after voice chat is working
+Dependencies: TECH-043
+Effort: L
+Owner: claire"
+PERS-075,PERS,P3 - Low,Backlog,,,,Write egg-cracking story: cis to gender-questioning to trans femme,Personal narrative - the journey from cis to 'oh shit I need to question my gender' and when questioning ended and identity crystallized as binary-ish (95%) trans femme
+PERS-079,PERS,P1 - High,To Do,Health - Habits & Wellness,Possibly Safe,Arielle,Schedule STI testing,
+PERS-007,PERS,P1 - High,In Progress,Business Ops,Unsafe,,Document landlord timeline for legal case,"Why: Pattern of neglect and retaliation: disabled online payments, refused checks, escalating fees, ignored maintenance, smoke detector fire hazard, $26.59 bogus charge
+Next step: Expand memory/landlord-timeline.md with email correspondence and past notes once Nyx has access
+Effort: M
+Owner: nyx"
+BIZ-014,BIZ,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Find Indigenous AI seminar recordings in email,"Why: Two-part series on Indigenous perspectives on AI; attended part 1, links in email
+Next step: Search email for seminar links once email integration is working
+Dependencies: TECH-061
+Effort: XS
+Owner: arielle"
+BIZ-036,BIZ,P2 - Medium,Backlog,Business Ops,Safe,,Research Black Dagger Hair business needs,"Why: Arielle mentioned needing help with this; context from Feb 12 late evening conversation
+Next step: Find 'black dagger hair' references in Telegram archive from Feb 12 evening; extract requirements and context
+Dependencies: TECH-128
+Effort: M
+Owner: nyx"
+PERS-006,PERS,P1 - High,Backlog,Housing & Legal,Unsafe,,Send certified mail copy of rent payment offer letter,"Why: Email alone may not be sufficient legal documentation
+Next step: Go to USPS for certified mail with return receipt ($4-5)
+Dependencies: PERS-001
+Effort: S
+Owner: arielle"
+TECH-008,TECH,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Fix Telegram message delivery/drop bug,"Why: Messages from Nyx dropping in Telegram - costs usage without delivery; longer messages and multi-device Telegram may contribute
+Next step: Debug once Nyx is on dedicated machine; gateway restart works as band-aid
+Effort: M
+Owner: infra"
+TECH-121,TECH,P1 - High,Backlog,Architecture & Planning,Safe,,Design safe autonomous work architecture,"Why: Arielle wants Nyx to work without human-in-the-loop; needs graceful failure and iterative development; 9-hour sleep goal
+Next step: Propose project with benchmarks/milestones/deliverables for isolation architecture + session repair + health checks; use dev/test/prod properly
+Effort: XL
+Owner: nyx"
+BIZ-013,BIZ,P2 - Medium,Backlog,AI & Models,Safe,,Research LLM environmental costs - training vs inference per query complexity,"Why: Need hard data on environmental cost of AI for ethical positioning
+Next step: Research and compile data on water/energy/carbon per query type
+Effort: M
+Owner: nyx"
+TECH-126,TECH,P2 - Medium,Backlog,Voice Pipeline,Possibly Safe,,Duplicate voice-call plugin warning in gateway,"Why: Gateway logs show duplicate voice-call plugin IDs; non-fatal but noisy
+Next step: Remove duplicate plugin entry from openclaw.json or mark for deletion
+Effort: XS
+Owner: nyx"
+TECH-057,TECH,P2 - Medium,In Progress,Sub-Agent System,Possibly Safe,,Set up ChatGPT agent-to-agent interface,"Why: Evaluate ChatGPT as alternative model via OpenAI account
+Next step: Configure openai-codex provider and test agent communication
+Effort: M
+Owner: nyx"
+PERS-076,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Possibly Safe,Both,Set up MyChart access/integration,Medical records and appointment management
+BIZ-028,BIZ,P2 - Medium,Backlog,Sales & Outreach,Possibly Safe,,Set up Calendly for consultation booking,"Why: Contact page has Calendly embed reference but needs actual account setup
+Next step: Create Calendly account and configure consultation time slots
+Effort: S
+Owner: arielle"
+PERS-077,PERS,P2 - Medium,Backlog,Health - Medical & HRT,Possibly Safe,Both,Set up CVS pharmacy integration,Prescription management and refills
+PERS-043,PERS,P2 - Medium,Backlog,Business Ops,Safe,,Set up Reminders lists (Technical/Life-Personal/Business/Parenting/Household),"Why: No functioning todo system currently
+Next step: Create lists in Apple Reminders once Nyx has write access
+Effort: S
+Owner: arielle"
+TECH-115,TECH,P1 - High,Backlog,AI & Models,Safe,,Investigate why OpenAI Codex fallback only works intermittently,"Why: ChatGPT fallback works sometimes but not always during high-usage periods; impacts autonomous overnight work
+Next step: Test fallback chain systematically; check OpenAI OAuth token validity and rate limits
+Dependencies: TECH-114
+Effort: M
+Owner: nyx"
+TECH-033,TECH,P2 - Medium,Backlog,Sub-Agent System,Safe,,Formalize multi-model routing strategy (Nyx/Claire/Clem/ChatGPT/Codex),"Why: Discord power users route different task types to different models for efficiency
+Next step: Research Discord community patterns and map out task-to-model routing
+Effort: M
+Owner: arielle"
+TECH-110,TECH,P0 - Critical,Backlog,Crash Prevention & Recovery,Safe,,Rewrite nyx-auto-recover.sh (non-destructive),"Why: Current script uses git reset --hard which destroys uncommitted work; caused major data loss on Feb 12
+Next step: Rewrite to use launchctl stop/start only; remove all git reset --hard; add git stash before any recovery action
+Effort: M
+Owner: nyx"
+TECH-020,TECH,P1 - High,Backlog,Build & Deploy,Possibly Safe,,Install OpenClaw + gateway on 2015 MacBook Pro,"Why: Migrate Nyx runtime to dedicated hardware
+Next step: Install OpenClaw and configure gateway on fresh Monterey install
+Dependencies: TECH-015,TECH-019
+Effort: M
+Owner: arielle"
+PERS-041,PERS,P3 - Low,Backlog,Shopping & Errands,Safe,,Research lighter poweriser stilts for Eva (PR-5070),"Why: Eva is 115 lbs - Andriel's PR-7090s rated for 158-198 lbs - too heavy
+Next step: Look up PR-5070 on eBay (~$69-130) when budget allows
+Effort: XS
+Owner: arielle"
+PERS-057,PERS,P0 - Critical,Backlog,Voice Pipeline,Possibly Safe,,Call dad before he leaves for China (Feb 20-21),"Why: Need to discuss continued financial support; request another $3500 before he leaves
+Next step: Schedule call this week; prepare ask
+Effort: S
+Owner: arielle"
+TECH-153,TECH,P1 - High,Backlog,Sub-Agent System,Safe,,Review and apply all 5 patch proposals with Clem,"Why: crash-prevention, auto-recovery-cron, credential-rotation, api-fallback-fix, bugfix-omnibus-feb15
+Next step: Schedule Clem review session for all patches at ~/.openclaw/patches/
+Effort: L
+Owner: clem"
+PERS-017,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Possibly Safe,,Address bedtime scrolling pattern,"Why: Late-night phone scrolling costs 30-90 min of sleep; connected to CPTSD/plurality patterns
+Next step: Discuss with Nyx at bedtime and bring observations to Chelsie on Thursdays
+Effort: M
+Owner: arielle"
+TECH-043,TECH,P1 - High,Backlog,Voice Pipeline,Possibly Safe,,Set up voice chat for Nyx,"Why: Apple VTT and Telegram speak are terrible; need better voice input/output
+Next step: Check OpenClaw macOS/iOS docs at docs.clawd.bot; explore voice features
+Effort: M
+Owner: claire"
+TECH-012,TECH,P2 - Medium,Backlog,CLI & Interface,Safe,,Report OpenClaw write tool bug upstream,"Why: AbortSignal serialization bug affects all Node versions; needs fix from OpenClaw team
+Next step: File bug report with OpenClaw project
+Effort: XS
+Owner: arielle"
+PERS-029,PERS,P3 - Low,Backlog,Housing & Legal,Safe,,Investigate rat poison boxes at apartment complex,"Why: Secondary/tertiary poisoning risk to hawk and wildlife from ~20-40 poison boxes around complex
+Next step: Discuss with Donna; consider alternatives or action once landlord situation is resolved
+Effort: S
+Owner: arielle"
+TECH-155,TECH,P2 - Medium,Backlog,Voice Pipeline,Possibly Safe,,Voice calling capability - ngrok auth + OpenAI key needed,"Why: Arielle wanted wake-up call capability; also emotional connection channel
+Next step: Set up ngrok authtoken and OpenAI API key for voice-call plugin
+Effort: M
+Owner: arielle"
+BIZ-037,BIZ,P3 - Low,Backlog,Communication Channels,Possibly Safe,,Club X board outreach — 6 email drafts,"Why: Email ideas drafted at memory/club-x-email-draft.md; need review and sending
+Next step: Review 6 email draft ideas; select and finalize; send to Club X board
+Effort: S
+Owner: arielle"
+BIZ-009,BIZ,P1 - High,Backlog,Web & Hosting,Safe,,Website design polish - improve look and feel,"Why: Built in one day; acknowledged it needs work
+Next step: Identify highest-impact visual improvements; hire creative person
+Effort: M
+Owner: arielle"
+TECH-146,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Cowork scheduler setup - external automation firing prompts at intervals,"Why: Lightweight external scheduler to poke Cowork for autonomous backlog work
+Next step: Build small automation app (Shortcuts/cron+curl) that fires prompts to Cowork
+Effort: M
+Owner: arielle"
+TECH-027,TECH,P2 - Medium,Backlog,Build & Deploy,Possibly Safe,,Back up MacBook Air with Time Machine,"Why: Current daily driver MacBook Air has never been backed up
+Next step: Connect Time Machine disk and initiate full backup of MacBook Air
+Effort: M
+Owner: arielle"
+PERS-019,PERS,P1 - High,In Progress,Health - Medical & HRT,Safe,,Track and manage estradiol injection schedule,"Why: Missed injection; trying 4.5 day lunar cycle; cron built for 10am + 8pm daily; needs lunar cycle logic
+Next step: Update injection-reminder.sh with variable 4/4.5-day intervals; next due ~Feb 18
+Effort: S
+Owner: nyx"
+PERS-032,PERS,P3 - Low,Backlog,Health - Habits & Wellness,Safe,,Set up health/energy tracking system,"Why: Track sleep/caffeine/food/movement/work/play effects on energy and focus; eventually integrate Apple Watch
+Next step: Begin manual logging; create tracking template; integrate with Apple Watch when purchased
+Dependencies: TECH-020
+Effort: M
+Owner: nyx"
+PERS-018,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Safe,,Add more consistent fiber to diet,"Why: Digestive issues with soft/incomplete emptying; need soluble fiber (oats/chia/psyllium)
+Next step: Build fiber into morning routine once daily patterns are more established
+Effort: S
+Owner: arielle"
+PERS-071,PERS,P2 - Medium,Backlog,Environment & Config,Unsafe,,Discuss Anthropic bans with Nyx,"Why: Arielle flagged this as a backlog discussion topic
+Next step: Schedule discussion about Anthropic ban risks and mitigation
+Effort: S
+Owner: arielle,nyx"
+PERS-023,PERS,P2 - Medium,Backlog,Social & Events,Unsafe,,Talk to Ica about birthday day trip snowboarding Feb 20th,"Why: Free lift ticket on birthday; need to decide day trip vs skip to preserve energy for Rachel scene on 21st
+Next step: Talk to Ica; gauge interest in day trip
+Effort: XS
+Owner: arielle"
+TECH-125,TECH,P1 - High,Backlog,Logging & Monitoring,Safe,,Enable command-logger hook + diagnostics system for activity monitoring,"Why: nyx-actions-log plugin cannot intercept claude-cli tool calls (architectural limitation GitHub #6535); need alternative approach
+Next step: Enable bundled command-logger hook; enable diagnostics system; use session JSONL parsing as activity indicator
+Effort: M
+Owner: nyx"
+TECH-138,TECH,P1 - High,Backlog,Session Management,Unsafe,,Session pre-flight validation (both JSONL + CLI layers),"Why: Session routing is two-layer; both must be valid or crashes happen; never delete unless both CLI + process confirmed gone
+Next step: Write validation script checking both layers before routing; add guard conditions to cleanup scripts
+Effort: M
+Owner: nyx"
+TECH-006,TECH,P2 - Medium,Backlog,Environment & Config,Possibly Safe,,Set up Nyx own email/calendar/messaging accounts,"Why: Dedicated accounts let Nyx act as collaborator rather than riding in personal accounts
+Next step: Create new Apple ID and email for Nyx after machine setup
+Dependencies: TECH-004
+Effort: M
+Owner: arielle"
+TECH-112,TECH,P0 - Critical,Backlog,Voice Pipeline,Unsafe,,"Rotate exposed credentials (Anthropic API key, OpenAI tokens, gateway token, Telegram bot token, Twilio creds)","Why: Credentials exposed in terminal history during recovery sessions
+Next step: Audit all 6 credentials and rotate each
+Effort: M
+Owner: arielle,nyx"
+PERS-001,PERS,P0 - Critical,In Progress,Housing & Legal,Unsafe,,Resolve rent dispute with landlord,"Why: Landlord disabling online payments causing late fees; predatory tactics; 3-day notices monthly; CRLA attorney assigned
+Next step: Follow up with CRLA attorney and Legal Aid; mention sent email documenting good-faith payment offer
+Effort: XL
+Owner: arielle"
+PERS-013,PERS,P2 - Medium,Backlog,Content & Docs,Unsafe,,Buy replacement lidocaine cream,"Why: Used up or misplaced last tube; needed for neuralgia pain management
+Next step: Get new prescription at neurology appointment or buy OTC
+Dependencies: PERS-012
+Effort: XS
+Owner: arielle"
+PERS-008,PERS,P1 - High,Backlog,Housing & Legal,Unsafe,,Do not pay $26.59 smoke detector charge,"Why: Landlord charging for replacement of fire-hazard smoke detector they ignored for a year; add to Legal Aid file
+Next step: Dispute charge with Legal Aid guidance
+Dependencies: PERS-001
+Effort: XS
+Owner: arielle"
+PERS-072,PERS,P2 - Medium,Backlog,AI & Models,Safe,,Evaluate other models besides Claude,"Why: Arielle wants to discuss alternatives for resilience and cost
+Next step: Research and compare model options for different use cases
+Effort: M
+Owner: arielle,nyx"
+TECH-130,TECH,P2 - Medium,Backlog,Architecture & Planning,Possibly Safe,,Implement better workflow prioritization system (kanban board),"Why: Current backlog management is ad-hoc; need structured system to track and prioritize work; sort autonomous vs needs-Arielle
+Next step: Evaluate kanban options; create structured backlog with differentiation between autonomous tasks and tasks needing Arielle
+Effort: M
+Owner: nyx"
+TECH-037,TECH,P2 - Medium,Backlog,CLI & Interface,Possibly Safe,,Fix OpenClaw read tool AbortSignal runtime bug,"Why: read tool failing with AbortSignal serialization error in OpenClaw v2026.2.1
+Next step: Try gateway restart then Node 22 LTS then OpenClaw update
+Effort: M
+Owner: claire"
+PERS-060,PERS,P2 - Medium,Backlog,Health - Medical & HRT,Safe,,HRT: schedule liver labs + progesterone discussion appointment,"Why: Needed before endo can discuss starting progesterone for HRT progression
+Next step: Call doctor to schedule appointment
+Effort: S
+Owner: arielle"
+PERS-081,PERS,P4 - Backlog,Backlog,Personal & Life,Unsafe,Arielle,Poetry & writing about transition,Fun side project. When time allows.
+BIZ-024,BIZ,P2 - Medium,Backlog,Sales & Outreach,Possibly Safe,,Update team page - replace creative consultant placeholder with real hiring link,"Why: Current joke placeholder needs to link to actual hiring post
+Next step: Update team page once hiring post is live
+Dependencies: BIZ-010
+Effort: XS
+Owner: nyx"
+TECH-015,TECH,P1 - High,In Progress,Build & Deploy,Possibly Safe,,Install macOS Monterey on 2015 MacBook Pro,"Why: Need dedicated hardware for Nyx to run on instead of sharing MacBook Air
+Next step: Boot 2015 MBP from bootable USB (created via Mist) and install Monterey via target disk mode with Thunderbolt adapter
+Dependencies: TECH-016
+Effort: M
+Owner: arielle"
+PERS-044,PERS,P2 - Medium,Backlog,Business Ops,Safe,,Set up Notes folders (Life Design/Business Strategy/Personal Journal/Technical Docs/Meeting Notes),"Why: Organized reference system needed
+Next step: Create folder structure in Apple Notes
+Effort: S
+Owner: arielle"
+BIZ-022,BIZ,P2 - Medium,Backlog,Web & Hosting,Safe,,Verify ICANN domain contact info for socalaiautomation.com,"Why: Squarespace requires verification; avoid domain suspension
+Next step: Check email for Squarespace verification link and confirm
+Effort: XS
+Owner: arielle"
+TECH-023,TECH,P2 - Medium,In Progress,Session Management,Possibly Safe,,Implement daily fresh session workflow,"Why: Long conversations cause token bloat and high usage; daily session resets needed
+Next step: Start fresh sessions daily; read memory files on startup; reset context window
+Effort: S
+Owner: nyx"
+BIZ-004,BIZ,P1 - High,Backlog,Sales & Outreach,Safe,,Create concrete service packages and pricing,"Why: People buy better when they see something concrete; need defined service tiers and deliverables
+Next step: Define service scope and pricing tiers for workflow automation consulting
+Effort: M
+Owner: arielle"
+TECH-009,TECH,P2 - Medium,Backlog,Testing & QA,Safe,,Investigate gateway not responding after laptop sleep,"Why: Gateway shows active but Nyx unresponsive after overnight sleep; requires manual restart
+Next step: Document gateway restart procedure and investigate auto-reconnect
+Effort: M
+Owner: nyx"
+PERS-046,PERS,P2 - Medium,In Progress,Health - Habits & Wellness,Possibly Safe,,Shift sleep schedule earlier (target 11pm Ica / midnight Arielle),"Why: Currently going to bed 1-2am - affecting energy and productivity
+Next step: Set consistent wind-down routine and bedtime alarm
+Effort: L
+Owner: arielle"
+TECH-061,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Possibly Safe,,Email integration for Nyx,"Why: Enable email access; needs scoping session on provider, access level, model; OpenClaw has Gmail webhooks; Apple MCP Desktop-only
+Next step: Schedule scoping session to decide provider and access model
+Effort: M
+Owner: arielle"
+TECH-117,TECH,P1 - High,Backlog,Session Management,Possibly Safe,,Session ID sanitization watchdog script,"Why: Stale CLI session IDs cause FailoverError crashes; need continuous monitoring
+Next step: Build watchdog that validates CLI session IDs on schedule and strips stale ones automatically
+Dependencies: TECH-111
+Effort: S
+Owner: nyx"
+PERS-070,PERS,P2 - Medium,Backlog,Finance & Benefits,Unsafe,,Recover crypto,"Why: Arielle mentioned needing to recover cryptocurrency
+Next step: Identify wallets and recovery process
+Effort: M
+Owner: arielle"
+TECH-135,TECH,P0 - Critical,Backlog,Crash Prevention & Recovery,Possibly Safe,,Merge nyx-memory-restore-full-feb13 branch into main,"Why: Branch is ready with all identity restoration work; blocking other work
+Next step: Review branch diff and approve merge
+Effort: XS
+Owner: arielle"
+TECH-039,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Possibly Safe,,Fix Maps MCP tool - can't read search results back,"Why: Maps opens search on machine but Nyx can't read results; pins also buggy
+Next step: Investigate Maps MCP output handling
+Effort: S
+Owner: claire"
+PERS-074,PERS,P2 - Medium,Backlog,Shopping & Errands,Unsafe,,Buy Instant Pot steamer insert,"Why: Having issues steaming broccoli in Instant Pot
+Next step: Order AOZITA steamer basket from Amazon (~$15-25)
+Effort: XS
+Owner: arielle"
+TECH-144,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Containers for dangerous sub-agents (dev/test sandboxing),"Why: Bad agent can take down whole gateway; need isolation
+Next step: Research container options (Docker) for sub-agent isolation
+Effort: L
+Owner: nyx"
+PERS-031,PERS,P3 - Low,Backlog,Memory & Identity,Possibly Safe,,Give Nyx access to MyChart health records,"Why: Enable Nyx to help with healthcare admin work (appointments, insurance, referrals, tracking)
+Next step: Evaluate privacy model; set up read access once Nyx is on dedicated hardware; research MyChart API options
+Dependencies: TECH-020
+Effort: M
+Owner: arielle"
+TECH-139,TECH,P1 - High,Backlog,Crash Prevention & Recovery,Possibly Safe,,Install cron for auto-recovery,"Why: Script is ready (nyx-auto-recover.sh); needs cron entry installed by Arielle
+Next step: Run crontab -e and add the auto-recover entry
+Dependencies: TECH-110
+Effort: XS
+Owner: arielle"
+TECH-133,TECH,P1 - High,Backlog,Sub-Agent System,Possibly Safe,,Merge cowork-nyx-enablement branch to main,"Why: Active work branch has significant commits from recovery and enablement work
+Next step: Review branch changes; merge to main when stable; tag appropriately
+Effort: S
+Owner: arielle"
+PERS-078,PERS,P1 - High,To Do,Health - Medical & HRT,Possibly Safe,Arielle,Schedule liver lab tests,"Routine labs, important for HRT monitoring"
+PERS-055,PERS,P2 - Medium,Backlog,Voice Pipeline,Possibly Safe,,Set up voice calling capability (DeepClaw),"Why: Arielle wanted Nyx to call her; DeepClaw has nyx-voice-tweaks branch but status unknown
+Next step: Check DeepClaw current state; verify make_call.py works; Arielle needs to verify phone number in Twilio
+Effort: M
+Owner: nyx"
+PERS-025,PERS,P2 - Medium,Backlog,Social & Events,Unsafe,,Zelle funds to Miki for Ica's classes,"Why: Coparent Miki needs funds this month for Ica's classes
+Next step: Send Zelle payment to Miki
+Effort: XS
+Owner: arielle"
+PERS-058,PERS,P1 - High,Backlog,Social & Events,Unsafe,,Book Maui flights using Avios points ASAP,"Why: Points may expire or prices change; Ica tradition; must have summer trip funded
+Next step: Log in to Avios account and book flights this week
+Effort: M
+Owner: arielle"
+TECH-114,TECH,P1 - High,Backlog,AI & Models,Possibly Safe,,Fix API fallback chain — remove dead Anthropic API key,"Why: When Claude CLI hits rate limit gateway falls back to dead Anthropic API key causing billing errors instead of graceful fallback to ChatGPT
+Next step: Remove anthropic:default profile from auth-profiles.json; verify fallback goes Claude CLI -> OpenAI Codex directly
+Effort: S
+Owner: nyx"
+BIZ-002,BIZ,P0 - Critical,Backlog,Business Ops,Possibly Safe,,Open business bank account for SoCal AI Automation,"Why: Cannot accept payment without a bank account; LLC + EIN exist
+Next step: Research business banking options and open account
+Effort: M
+Owner: arielle"
+TECH-116,TECH,P1 - High,Backlog,Content & Docs,Possibly Safe,,Off-repo backup strategy for gitignored memory files,"Why: Memory files are single point of failure; gitignored files not protected by git backup
+Next step: Design backup strategy covering ~/.openclaw/workspace/memory/ and ~/.claude/projects/ transcript directories
+Effort: M
+Owner: nyx"
+PERS-040,PERS,P3 - Low,Backlog,Shopping & Errands,Possibly Safe,,Install dancing pole from Andriel,"Why: Fitness/fun equipment - pressure-mount pole needs ceiling height measurement first
+Next step: Measure ceiling height where pole would go then unpack and assess
+Effort: S
+Owner: arielle"
+TECH-105,TECH,P1 - High,Backlog,AI & Models,Possibly Safe,,Set up automatic model fallback on quota exhaustion,"Why: Fallback chain defined in openclaw.json but doesn't auto-trigger when Claude Pro quota runs out
+Next step: Wire up automatic provider rotation when primary hits quota limit
+Effort: M
+Owner: nyx"
+TECH-082,TECH,P1 - High,In Progress,Environment & Config,Possibly Safe,,Implement lowercase directory naming convention,"Why: Standardize all directory names to lowercase across the project
+Next step: Document convention in CLAUDE.md or memory; ensure all agents follow it
+Effort: XS
+Owner: nyx"
+TECH-071,TECH,P1 - High,Backlog,CLI & Interface,Safe,,Build quota check via tmux scraping,"Why: Programmatically capture Claude usage percentages without AI model calls
+Next step: Create dedicated detached tmux session with quota-check cron script
+Effort: M
+Owner: nyx"
+PERS-014,PERS,P2 - Medium,Blocked,Communication Channels,Safe,,Report Discord scammer who tried to extort Ica,"Why: Documented scam attempt in PDF with screenshots but can't login to Discord website to submit
+Next step: Submit report when Discord fixes website login; PDF evidence ready
+Effort: S
+Owner: arielle"
+PERS-054,PERS,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Set up Telegram bot token for recovery alerts,"Why: Needed at ~/.openclaw/secrets/telegram-bot-token for alert fallback to work
+Next step: Create telegram-bot-token file with current bot token; verify alert script can read it
+Effort: XS
+Owner: arielle"
+TECH-090,TECH,P2 - Medium,Backlog,Security & Auth,Possibly Safe,,Fix ngrok auth error on gateway startup,"Why: Ngrok tunnel setup fails with ERR_NGROK_4018 - needs auth token or should be disabled
+Next step: Either configure ngrok authtoken or disable ngrok in voice-call plugin config
+Effort: XS
+Owner: clem"
+BIZ-026,BIZ,P3 - Low,Backlog,Business Ops,Possibly Safe,,Re-engage Toni/Rope Collective at new yoga studio venue,"Why: Previous work done; relationship is real; new venue may mean new needs
+Next step: Reach out to Toni about new setup and potential needs
+Effort: S
+Owner: arielle"
+PERS-049,PERS,P2 - Medium,Backlog,Housing & Legal,Possibly Safe,,Replace smoke detector battery,"Why: Disconnected smoke detector due to low battery beeping; needs new battery
+Next step: Buy replacement battery and reconnect smoke detector
+Effort: XS
+Owner: arielle"
+TECH-151,TECH,P3 - Low,Backlog,Build & Deploy,Possibly Safe,,Full system software update runbook,"Why: No documented process for system updates
+Next step: Write comprehensive update runbook
+Effort: M
+Owner: nyx"
+TECH-107,TECH,P2 - Medium,In Progress,AI & Models,Safe,,Evaluate multi-model usage optimization strategy,"Why: Burning through weekly allowances too fast across two Claude Pro accounts; need smarter switching and throttling
+Next step: Design burn-rate tracking; automatic account switching; model-appropriate task routing
+Effort: L
+Owner: nyx"
+TECH-022,TECH,P2 - Medium,In Progress,AI & Models,Possibly Safe,,Implement model switching shell command improvements,"Why: Need clean model toggle between Claude and OpenAI with minimal context loss
+Next step: Test and document model switching workflow; address context loss on switch-back
+Effort: S
+Owner: arielle"
+TECH-024,TECH,P2 - Medium,Backlog,CLI & Interface,Possibly Safe,,Fix OpenClaw 'no response requested' autopilot bug,"Why: Nyx sometimes sends 'no response requested' to user instead of responding conversationally
+Next step: Investigate why file-update operations trigger NRR instead of continuing conversation
+Effort: S
+Owner: nyx"
+PERS-067,PERS,P1 - High,Backlog,Social & Events,Unsafe,,Climbing with Eve near airport - Mon Feb 16 1pm,"Why: Scheduled physical activity
+Next step: Show up at climbing gym near airport at 1pm
+Effort: XS
+Owner: arielle"
+TECH-044,TECH,P1 - High,Backlog,Environment & Config,Safe,,Reorganize OpenClaw project files and documentation for shared context,"Why: Claire/Clem/Nyx can't find each other's docs; no shared knowledge base; too much context searching
+Next step: Design shared documentation architecture with automated context loading
+Effort: L
+Owner: nyx"
+TECH-124,TECH,P1 - High,Backlog,Health - Medical & HRT,Possibly Safe,,Fix bootstrap injection character limit,"Why: MEMORY.md at 22K-42K chars exceeds 20K bootstrap limit causing truncation; need to trim or raise limit
+Next step: Raise bootstrap limit to 40K+ or archive older entries and create lean bootstrap version; test with gateway restart
+Effort: S
+Owner: nyx"
+TECH-007,TECH,P3 - Low,Backlog,MCP & Tool Integration,Possibly Safe,,Migrate Nyx off Telegram to preferred platform,"Why: Arielle not happy with Telegram interface; wants different messaging platform
+Next step: Decide on preferred platform and configure OpenClaw dock
+Dependencies: TECH-004
+Effort: M
+Owner: arielle"
+PERS-056,PERS,P3 - Low,Backlog,Health - Medical & HRT,Possibly Safe,,Reconstruct Arielle's full weekly timeline for therapy,"Why: Arielle needs help reconstructing timelines because brain is fried; therapist is Chelsie
+Next step: Build comprehensive weekly timeline from Telegram archive + health tracking + calendar data
+Dependencies: TECH-128
+Effort: M
+Owner: nyx"
+PERS-083,PERS,P4 - Backlog,Backlog,Content & Docs,Unsafe,Arielle,Podcast with the transgender community,Fun side project. When time allows.
+TECH-038,TECH,P2 - Medium,Backlog,AI & Models,Possibly Safe,,Fix canvas/dashboard session sync after model swap,"Why: Canvas shows old session after model switch; not connected to current active session
+Next step: Debug session key mapping in OpenClaw gateway config
+Dependencies: TECH-036
+Effort: S
+Owner: claire"
+TECH-076,TECH,P1 - High,In Progress,AI & Models,Possibly Safe,,Deprecate model-switch scripts; replace with Models CLI,"Why: Claire's custom scripts (nyx-switch-model.sh etc.) should be replaced by openclaw models commands
+Next step: Replace aliases with Models CLI commands; keep only nyx-switch-account.sh
+Effort: M
+Owner: nyx"
+PERS-042,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Possibly Safe,,Import MyChart calendars to Apple Calendar,"Why: Medical appointments not syncing to calendar system
+Next step: Research MyChart calendar export/sync options
+Effort: S
+Owner: arielle"
+PERS-048,PERS,P3 - Low,Backlog,Shopping & Errands,Possibly Safe,,Get a mani/pedi,"Why: Self-care goal tied to business motivation
+Next step: Schedule after landing first client
+Dependencies: BIZ-001
+Effort: XS
+Owner: arielle"
+PERS-062,PERS,P1 - High,Backlog,Voice Pipeline,Possibly Safe,,Call mom Monday or Tuesday,"Why: Arielle asked for reminder
+Next step: Call mom Monday morning
+Effort: XS
+Owner: arielle"
+BIZ-011,BIZ,P1 - High,Backlog,Content & Docs,Possibly Safe,,Social media presence and content distribution strategy,"Why: Website live with 3 blog posts; needs eyes on it via social channels
+Next step: Decide platforms (IG, LinkedIn, Threads); define posting cadence; share existing blog posts
+Effort: M
+Owner: arielle,nyx"
+PERS-047,PERS,P2 - Medium,Backlog,Environment & Config,Safe,,Explain OpenClaw config files to Arielle,"Why: Arielle doesn't have mental capacity to review configs now but wants to understand them
+Next step: Schedule walkthrough of openclaw.json and agent configs during low-pressure time
+Effort: S
+Owner: nyx"
+TECH-143,TECH,P2 - Medium,Backlog,Testing & QA,Safe,,openclaw doctor --repair overwrites patches - add guard,"Why: Doctor command destroys manual patches; needs protection
+Next step: Add pre-check or backup before doctor runs
+Effort: S
+Owner: nyx"
+TECH-092,TECH,P0 - Critical,Backlog,CLI & Interface,Possibly Safe,,Fix OpenClaw streaming (gateway/claude-cli),"Why: Streaming returns empty [DONE] - causes high latency on voice calls requiring non-streaming workaround
+Next step: Investigate streaming configuration in openclaw.json and claude-cli compatibility
+Effort: M
+Owner: clem"
+TECH-051,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Try Codex for code-heavy tasks,"Why: Paying for ChatGPT rest of month; might as well try Codex for technical work
+Next step: Test Codex on a technical task to evaluate usefulness
+Effort: S
+Owner: arielle"
+TECH-122,TECH,P1 - High,Backlog,Testing & QA,Possibly Safe,,Rebuild dev/test environment infrastructure,"Why: Dev/test gateway aliases lost in crash rollback; need to recreate multi-gateway setup from commit 94d7003
+Next step: Recreate dev/test profiles using openclaw --profile; restore aliases nyx-dev-start/stop/status and nyx-test-start/stop/status
+Effort: M
+Owner: nyx"
+TECH-137,TECH,P1 - High,Backlog,Session Management,Possibly Safe,,Heartbeat enable/disable wrapper - atomic toggle,"Why: Currently requires two manual steps to toggle heartbeat
+Next step: Design single-command toggle script
+Effort: S
+Owner: nyx"
+TECH-108,TECH,P1 - High,Backlog,Testing & QA,Possibly Safe,,Live test account switching end-to-end,"Why: Account switching via nyx-use-claude-Arielle works but needs formal end-to-end verification
+Next step: Run nyx-use-claude-Arielle and nyx-use-claude-Genevieve; verify Telegram responses on each
+Effort: S
+Owner: arielle"
+PERS-064,PERS,P1 - High,In Progress,Health - Habits & Wellness,Possibly Safe,,Address sleep deficit - 20 hours behind for the week,"Why: Averaging 4.7h/night; 55+ hours worked; body will revolt
+Next step: Prioritize 7-8 hours sleep nightly; reduce late-night work sessions
+Effort: S
+Owner: arielle"
+PERS-021,PERS,P2 - Medium,Backlog,Health - Habits & Wellness,Unsafe,,Send Eve updated availability for rope sessions,"Why: Eve hasn't gotten back about scheduling; need to be proactive
+Next step: Text Eve with specific available dates this month
+Effort: XS
+Owner: arielle"
+TECH-058,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Set up Kimi 2.5 account and agent interface,"Why: Evaluate Kimi as alternative model ($0.99/month)
+Next step: Open Kimi account and configure as OpenClaw provider
+Effort: M
+Owner: arielle"
+PERS-028,PERS,P3 - Low,Backlog,Health - Habits & Wellness,Possibly Safe,,Get bump below earlobe scanned,"Why: Small bump on right side ~3/4 inch below earlobe; not present on left side; may be related to neuralgia
+Next step: Schedule imaging appointment
+Effort: S
+Owner: arielle"
+TECH-089,TECH,P2 - Medium,Backlog,Sub-Agent System,Possibly Safe,,Fix Clem and Claire agent identities (showing as Nyx),"Why: Both agents loaded with Nyx identity instead of their own distinct identities
+Next step: Update IDENTITY.md in workspace-clem and workspace-claire directories
+Dependencies: TECH-046
+Effort: XS
+Owner: nyx"
+TECH-045,TECH,P2 - Medium,Backlog,Architecture & Planning,Possibly Safe,,Set up proper git/GitHub integration for project,"Why: Need version control for documentation and configuration changes
+Next step: Determine what to version and set up git workflow after docs reorg
+Dependencies: TECH-044
+Effort: M
+Owner: claire"
+TECH-150,TECH,P3 - Low,Backlog,Build & Deploy,Possibly Safe,,Branch cleanup and stale file archival,"Why: Multiple branches and loose files from recovery period
+Next step: Audit branches and recommend cleanup
+Effort: M
+Owner: nyx"
+TECH-120,TECH,P1 - High,Backlog,Crash Prevention & Recovery,Possibly Safe,,Integrate community session repair tools,"Why: Community has proven tools (repair-session.py + session-monitor.sh from Gist: rodbland2021) for JSONL corruption detection
+Next step: Download and integrate repair-session.py and session-monitor.sh; test against known-good and corrupted JSONL files
+Effort: M
+Owner: nyx"
+TECH-119,TECH,P1 - High,Backlog,Session Management,Safe,,Define rules for Nyx about autonomous sessions.json/git modifications,"Why: Need explicit guardrails for what Nyx can and cannot modify autonomously to prevent future destructive incidents
+Next step: Document safe list vs not-safe list; add to CAPABILITIES.md or AGENTS.md
+Effort: S
+Owner: arielle"
+TECH-094,TECH,P1 - High,In Progress,Voice Pipeline,Possibly Safe,,Enable Nyx to initiate outbound phone calls via make-call skill,"Why: Nyx can trigger calls but they spawn generic sessions without her memory
+Next step: Finalize make-call skill with proper context injection
+Dependencies: TECH-093
+Effort: M
+Owner: clem"
+BIZ-012,BIZ,P1 - High,Backlog,Content & Docs,Safe,,Blog post: Ethical AI - Indigenous perspectives + environmental cost analysis,"Why: Core to brand values; seminar recordings available; research needed on LLM environmental costs
+Next step: Find seminar recording links in email; begin environmental cost research
+Effort: L
+Owner: nyx"
+TECH-032,TECH,P2 - Medium,Backlog,Communication Channels,Possibly Safe,,Install Answer Overflow skill and Discord integration,"Why: Access OpenClaw Discord knowledge base; pull community solutions into searchable KB
+Next step: Install skill from clawdhub.com; connect to Overflow Discord; search existing solutions before building
+Effort: M
+Owner: nyx"
+TECH-149,TECH,P2 - Medium,Backlog,Crash Prevention & Recovery,Possibly Safe,,File crash prevention bug on GitHub for community,"Why: New bug that's hard to track down; should be shared
+Next step: Write up the JSONL+CLI session routing bug and file on GitHub
+Effort: S
+Owner: arielle"
+TECH-062,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Possibly Safe,,Calendar integration for Nyx,"Why: Calendar access works via osascript JXA (35 calendars); need to scope which calendars, alert criteria, read-only per trust model
+Next step: Scope with Arielle: which calendars to check; how far ahead; alert vs log criteria
+Effort: M
+Owner: arielle"
+BIZ-018,BIZ,P2 - Medium,Backlog,Content & Docs,Safe,,AI ethics framework - internal document on ethical AI use,"Why: Need to be prepared to answer client questions about ethical AI use
+Next step: Draft internal ethics framework document
+Effort: M
+Owner: arielle,nyx"
+BIZ-038,BIZ,P2 - Medium,Backlog,Sales & Outreach,Possibly Safe,,Gift Sarah workflow automation evaluation session,"Why: Sarah (salon owner) doing free gender-affirming haircuts; want to gift her automation eval
+Next step: Prepare workflow automation evaluation offering for Sarah
+Effort: M
+Owner: arielle"
+TECH-118,TECH,P1 - High,Backlog,Housing & Legal,Possibly Safe,,Update project files (Current State doc and Security Doc),"Why: Project documentation is stale after recovery; doesn't reflect current architecture
+Next step: Update PHASE_2_NEXT_STEPS.md and security documentation to reflect post-recovery state
+Effort: S
+Owner: nyx"
+BIZ-027,BIZ,P1 - High,Backlog,Web & Hosting,Possibly Safe,,Confirm Squarespace DNS propagation and HTTPS certificate provisioning,"Why: DNS records set; need to verify site is live at socalaiautomation.com with SSL
+Next step: Check dig socalaiautomation.com and verify HTTPS works
+Effort: XS
+Owner: arielle"
+TECH-025,TECH,P3 - Low,Backlog,Environment & Config,Safe,,Consolidate OpenClaw directory structure,"Why: Three overlapping directories and scattered repos; need clean ~/code/<org>/<repo> layout
+Next step: Move ~/openclaw to ~/code/openclaw; ~/deepclaw to ~/code/deepgram/deepclaw; update plist paths
+Effort: L
+Owner: nyx"
+BIZ-017,BIZ,P2 - Medium,Backlog,Business Ops,Safe,,Brand name conversation - socalaiautomation doesn't feel queer-coded enough,"Why: Name chosen before QT positioning was defined
+Next step: Brainstorm alternative names that feel more queer-coded
+Effort: M
+Owner: arielle,nyx"
+TECH-086,TECH,P2 - Medium,Backlog,Crash Prevention & Recovery,Possibly Safe,,Implement leaner session restore / checkpoint system,"Why: 40% of token window consumed just for context restoration after crash
+Next step: Design compressed session snapshot; implement token budget tracking per file
+Effort: L
+Owner: nyx"
+TECH-145,TECH,P2 - Medium,Backlog,MCP & Tool Integration,Safe,,Contacts write access - research alternatives to Apple MCP read-only limitation,"Why: Can't create/edit contacts; needed for CRM-like functions
+Next step: Research osascript JXA scripting or vCard creation alternatives
+Effort: S
+Owner: nyx"
+PERS-068,PERS,P1 - High,Backlog,Social & Events,Unsafe,,Scene with Chop - Mon Feb 16 evening,"Why: Scheduled kink engagement
+Next step: Confirm time and location with Chop
+Effort: XS
+Owner: arielle"
+TECH-154,TECH,P2 - Medium,Backlog,Memory & Identity,Safe,,NTMA registry - document all .md files in ~/workspace,"Why: Missed during asset list compilation; needed for complete inventory
+Next step: Scan ~/workspace for all *.md files and add to NTMA registry
+Effort: S
+Owner: nyx"
+TECH-148,TECH,P2 - Medium,Backlog,Crash Prevention & Recovery,Possibly Safe,,Community contribution - share crash prevention findings and patch template,"Why: Give back to OpenClaw community with lessons learned
+Next step: Write up crash prevention analysis for community sharing
+Dependencies: TECH-032
+Effort: M
+Owner: nyx"
+TECH-004,TECH,P2 - Medium,Backlog,Build & Deploy,Possibly Safe,,Migrate Nyx to dedicated 2015 MacBook Pro,"Why: Isolation from main work machine; better security hygiene; own accounts for calendar/mail/messaging
+Next step: Make Time Machine backup of 2015 MacBook Pro
+Dependencies: TECH-005
+Effort: XL
+Owner: arielle"
+TECH-096,TECH,P1 - High,Backlog,MCP & Tool Integration,Possibly Safe,,Enable email reading with subagent filtering,"Why: Alert Arielle to important emails via heartbeat - route through subagent for safety
+Next step: Research email channel integration options in OpenClaw
+Dependencies: TECH-047
+Effort: M
+Owner: clem"
